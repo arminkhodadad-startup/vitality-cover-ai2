@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050816" />
+  <title>Vitality Cover AI — MVP v1.4 Responsive QA</title>
+  <style>
+:root{
+  --bg:#040711;--bg2:#07101f;--panel:rgba(10,20,38,.78);--panel2:rgba(11,17,35,.92);
+  --text:#f7fbff;--muted:#8fa0bd;--cyan:#29e7ff;--blue:#4d7dff;--purple:#9b5cff;--pink:#ff4fd8;
+  --green:#40e5a1;--yellow:#ffcf59;--red:#ff5c7c;--line:rgba(108,164,255,.16);--line2:rgba(73,226,255,.26);
+  --radius:18px;--shadow:0 18px 60px rgba(0,0,0,.32);--bottom-h:76px;--side-w:92px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:
+radial-gradient(circle at 66% -10%,rgba(75,69,255,.17),transparent 35%),radial-gradient(circle at 10% 20%,rgba(0,224,255,.08),transparent 28%),var(--bg);color:var(--text);font-family:Inter,Roboto,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;min-height:100vh;letter-spacing:.01em}button,input,select{font:inherit}button{cursor:pointer}.app-shell{min-height:100vh}.side-nav{position:fixed;left:0;top:0;bottom:0;width:var(--side-w);z-index:30;background:rgba(3,7,17,.92);backdrop-filter:blur(20px);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:18px 10px calc(var(--bottom-h) + 14px)}.brand{display:flex;align-items:center;gap:10px}.brand.compact{width:100%;justify-content:center}.brand.compact>div:last-child{display:none}.brand-mark{width:48px;height:48px;border:1px solid rgba(45,230,255,.5);border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:24px;color:var(--cyan);box-shadow:0 0 28px rgba(41,231,255,.16),inset 0 0 20px rgba(41,231,255,.08);background:linear-gradient(145deg,rgba(17,42,66,.8),rgba(18,12,45,.85))}.nav-stack{display:flex;flex-direction:column;gap:9px;margin-top:28px;width:100%;align-items:center}.nav-btn{width:58px;height:52px;border-radius:14px;border:1px solid transparent;background:transparent;color:#71819f;display:grid;place-items:center;position:relative;transition:.2s}.nav-btn:hover{background:rgba(80,132,255,.08);color:#cbd9ef}.nav-btn.is-active{background:linear-gradient(145deg,rgba(26,87,255,.19),rgba(121,54,255,.15));color:var(--cyan);border-color:rgba(47,209,255,.27);box-shadow:inset 0 0 28px rgba(27,130,255,.08)}.nav-btn .icon{font-size:20px}.nav-btn .nav-label{display:none}.side-footer{margin-top:auto;width:60px;text-align:center;color:var(--muted);font-size:9px}.side-footer strong,.side-footer span{display:none}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);margin:0 auto}.main-shell{margin-left:var(--side-w);padding:0 26px calc(var(--bottom-h) + 44px);max-width:1700px}.topbar{min-height:88px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(4,7,17,.96) 0%,rgba(4,7,17,.84) 70%,rgba(4,7,17,0) 100%);backdrop-filter:blur(14px);padding:10px 0}.eyebrow,.section-kicker,.panel-kicker{margin:0;text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:800;color:#5e79a4}.topbar h1{font-size:25px;margin:5px 0 0;letter-spacing:-.03em}.topbar-actions{display:flex;align-items:center;gap:10px}.live-badge{font-size:10px;font-weight:800;letter-spacing:.1em;color:#a8b9d2;border:1px solid var(--line);padding:10px 12px;border-radius:999px;background:rgba(10,18,34,.6)}.live-badge span{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:7px;background:var(--green);box-shadow:0 0 10px var(--green)}.avatar{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,rgba(25,212,255,.25),rgba(130,74,255,.26));border:1px solid rgba(63,216,255,.3);display:grid;place-items:center;font-weight:800;color:#dffbff}.avatar.large{width:64px;height:64px;border-radius:18px;font-size:20px}.ghost-btn,.icon-btn,.primary-btn{border:1px solid var(--line2);background:rgba(8,17,34,.72);color:#d9efff;border-radius:12px;padding:10px 14px;transition:.18s}.ghost-btn:hover,.icon-btn:hover{border-color:rgba(44,232,255,.55);box-shadow:0 0 20px rgba(45,227,255,.09)}.icon-btn{width:38px;height:38px;padding:0;font-size:22px}.primary-btn{background:linear-gradient(90deg,#1dbde1,#5854ff 58%,#ad4ef2);border-color:transparent;font-weight:800;color:white;box-shadow:0 10px 32px rgba(55,122,255,.25)}.primary-btn.full{width:100%;margin-top:16px}.prototype-strip{margin:2px 0 18px;padding:10px 14px;border:1px solid rgba(255,207,89,.22);border-radius:12px;background:rgba(255,198,63,.05);color:#a8b3c8;font-size:11px}.prototype-strip strong{color:var(--yellow);letter-spacing:.08em}.page{display:none;animation:pageIn .25s ease}.page.is-active{display:block}@keyframes pageIn{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:none}}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:4px 0 17px}.section-head h2{font-size:30px;margin:3px 0 0;letter-spacing:-.04em}.tabs{display:flex;gap:4px;background:rgba(7,14,29,.74);border:1px solid var(--line);padding:4px;border-radius:12px;overflow:auto;max-width:100%}.tab-btn{border:0;background:transparent;color:#71839f;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}.tab-btn.is-active{color:#eefaff;background:linear-gradient(145deg,rgba(31,145,255,.2),rgba(129,71,255,.18));box-shadow:inset 0 0 0 1px rgba(83,211,255,.16)}.tab-panel{display:none}.tab-panel.is-active{display:block;animation:pageIn .2s ease}.kpi-grid{display:grid;gap:12px;margin-bottom:12px}.kpi-grid.four{grid-template-columns:repeat(4,1fr)}.kpi-card,.panel,.premium-hero{background:linear-gradient(160deg,rgba(11,22,42,.86),rgba(6,11,24,.88));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);position:relative;overflow:hidden}.kpi-card{padding:17px;min-height:135px}.kpi-card:after,.panel:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.015),transparent 25%,transparent 75%,rgba(41,231,255,.015))}.glow-cyan{box-shadow:var(--shadow),inset 0 0 45px rgba(41,231,255,.04)}.glow-purple{box-shadow:var(--shadow),inset 0 0 45px rgba(155,92,255,.05)}.kpi-label{font-size:11px;color:#8193ae;font-weight:700;text-transform:uppercase;letter-spacing:.09em}.kpi-value{margin-top:14px;font-size:34px;line-height:1;font-weight:850;letter-spacing:-.05em}.kpi-value small{font-size:13px;color:#70829e;font-weight:700;margin-left:4px}.kpi-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;color:#74849d;font-size:10px}.pill,.ai-chip,.warning-chip{display:inline-flex;align-items:center;border-radius:999px;padding:5px 8px;border:1px solid rgba(93,134,196,.2);font-size:9px;font-weight:900;letter-spacing:.08em;color:#a8b8d1;background:rgba(29,58,100,.18)}.pill.healthy{color:var(--green);border-color:rgba(64,229,161,.2);background:rgba(64,229,161,.06)}.ai-chip{color:var(--cyan);border-color:rgba(41,231,255,.22);background:rgba(41,231,255,.06)}.warning-chip{color:var(--yellow);border-color:rgba(255,207,89,.22);background:rgba(255,207,89,.06)}.risk-dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 10px currentColor}.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-7{grid-column:span 7}.span-6{grid-column:span 6}.span-5{grid-column:span 5}.span-4{grid-column:span 4}.span-3{grid-column:span 3}.panel{padding:16px;min-height:120px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px}.panel-head h3{margin:4px 0 0;font-size:15px;letter-spacing:-.02em}.mini-label{font-size:8px;color:#586a86;letter-spacing:.11em;font-weight:800}.legend{display:flex;gap:12px;font-size:9px;color:#6f819c}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:7px;height:7px;border-radius:50%}.legend .cyan{background:var(--cyan)}.legend .purple{background:var(--purple)}.legend .pink{background:var(--pink)}.chart-shell{height:245px;position:relative}.chart-shell.short{height:190px}.line-chart{width:100%;height:100%;overflow:visible}.chart-grid{stroke:rgba(136,175,226,.08);stroke-width:1}.chart-label{fill:#5f708a;font-size:10px}.chart-line{fill:none;stroke-width:3;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 5px rgba(36,221,255,.25))}.chart-area{opacity:.08}.risk-bars{display:flex;flex-direction:column;gap:13px}.risk-row{display:grid;grid-template-columns:110px 1fr 34px;align-items:center;gap:9px;font-size:10px;color:#8b9ab2}.risk-row strong{color:#cad7ea;text-align:right}.risk-track,.progress,.gauge-track{height:7px;background:rgba(113,136,172,.11);border-radius:999px;overflow:hidden}.risk-track i,.progress i,.gauge-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));box-shadow:0 0 10px rgba(79,142,255,.25)}.action-list{display:flex;flex-direction:column;gap:8px}.action-item{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;border:1px solid rgba(95,129,181,.11);background:rgba(15,26,45,.4);border-radius:12px;padding:10px}.action-icon{width:34px;height:34px;border-radius:10px;background:rgba(48,209,255,.08);border:1px solid rgba(48,209,255,.13);display:grid;place-items:center;color:var(--cyan)}.action-item strong{font-size:11px}.action-item small{display:block;color:#687b98;font-size:9px;margin-top:2px}.action-item em{font-size:9px;color:var(--green);font-style:normal}.forecast-chart{height:135px;display:flex;align-items:flex-end;gap:8px;padding:8px 4px 2px}.forecast-bar{flex:1;min-width:12px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,rgba(41,231,255,.85),rgba(77,125,255,.35));box-shadow:0 0 12px rgba(45,201,255,.08);position:relative}.forecast-bar:after{content:attr(data-value);position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:8px;color:#6d819d}.delta-positive{font-size:11px;color:var(--green);font-weight:800}.panel-note{color:#6c7e98;font-size:10px;line-height:1.6;margin:10px 0 0}.donut{width:145px;height:145px;border-radius:50%;margin:12px auto;background:conic-gradient(var(--cyan) 0deg,var(--purple) 120deg,rgba(89,106,138,.12) 120deg);display:grid;place-items:center;box-shadow:0 0 30px rgba(50,183,255,.08)}.donut:before{content:"";width:106px;height:106px;background:#08101e;border-radius:50%;position:absolute}.donut>div{position:relative;text-align:center}.donut strong{font-size:30px}.donut span{display:block;font-size:9px;color:#65758d}.donut.large{width:190px;height:190px}.donut.large:before{width:142px;height:142px}.micro-stats{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;font-size:9px;color:#677b96}.micro-stats strong{display:block;color:#cbd8e9;margin-top:2px}.program-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.program-card{padding:12px;border:1px solid rgba(111,148,199,.12);border-radius:13px;background:rgba(9,18,34,.48);display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center}.program-card .progress{grid-column:1/-1}.program-icon{width:34px;height:34px;border-radius:10px;background:rgba(115,82,255,.1);display:grid;place-items:center;color:#bda6ff}.program-card strong{font-size:10px}.program-card small{display:block;font-size:8px;color:#6c7c96;margin-top:3px}.portfolio-table{overflow:auto}.data-row{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:8px;align-items:center;padding:12px 10px;border-bottom:1px solid rgba(102,137,187,.08);font-size:10px;color:#7f91ab}.data-row.header{font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:#53657e;background:rgba(13,23,40,.35);border-radius:10px}.data-row strong{color:#d6e2f2}.trend-up{color:var(--green)}.trend-down{color:var(--red)}.alert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.alert-card{padding:16px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(155deg,rgba(12,22,40,.82),rgba(7,13,27,.9));display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center}.alert-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,207,89,.07);color:var(--yellow);border:1px solid rgba(255,207,89,.14)}.alert-card strong{font-size:12px}.alert-card small{display:block;color:#6d7f98;font-size:9px;margin-top:4px;line-height:1.5}.alert-level{font-size:8px;font-weight:900;padding:5px 7px;border-radius:999px;background:rgba(255,92,124,.08);color:var(--red);border:1px solid rgba(255,92,124,.15)}.member-top{display:flex;align-items:center;gap:14px}.member-top h3{margin:2px 0;font-size:22px}.member-top p{margin:0;color:#7b8da7;font-size:11px}.identity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:16px}.identity-grid div{padding:11px;background:rgba(12,24,43,.5);border:1px solid rgba(95,133,185,.1);border-radius:12px}.identity-grid span{display:block;font-size:8px;color:#667996;text-transform:uppercase;letter-spacing:.08em}.identity-grid strong{display:block;font-size:15px;margin-top:4px}.consent-card{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px;background:rgba(53,208,175,.05);border:1px solid rgba(64,229,161,.12);border-radius:12px}.shield{color:var(--green)}.consent-card strong{font-size:10px}.consent-card small{display:block;font-size:8px;line-height:1.5;color:#6f819a;margin-top:3px}.radar-wrap{display:flex;gap:22px;align-items:center}.radar-wrap svg{width:66%;height:330px}.radar-grid{fill:none;stroke:rgba(112,151,205,.12)}.radar-axis{stroke:rgba(112,151,205,.1)}.radar-shape{fill:rgba(46,212,255,.12);stroke:var(--cyan);stroke-width:2;filter:drop-shadow(0 0 8px rgba(41,231,255,.22))}.radar-point{fill:var(--cyan)}.radar-legend{display:flex;flex-direction:column;gap:8px;font-size:10px;color:#7587a1}.radar-legend div{display:flex;justify-content:space-between;gap:18px}.radar-legend strong{color:#d8e6f5}.routine-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.routine-card{padding:13px;background:rgba(9,19,35,.5);border:1px solid rgba(88,132,190,.1);border-radius:13px}.routine-top{display:flex;justify-content:space-between;font-size:10px}.routine-top span{color:#7a8da8}.routine-card .progress{margin-top:9px}.check-list{display:flex;flex-direction:column;gap:8px}.check-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:11px;background:rgba(10,20,37,.5);border:1px solid rgba(91,127,174,.09);font-size:10px;color:#9aabc2}.check-item input{accent-color:#39dffc}.save-note{opacity:0;font-size:9px;color:var(--green);text-align:center;margin-top:8px;transition:.2s}.save-note.show{opacity:1}.funnel{display:flex;flex-direction:column;gap:10px}.funnel-step{height:38px;margin:auto;border-radius:10px;background:linear-gradient(90deg,rgba(45,222,255,.24),rgba(119,76,255,.2));display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:10px;border:1px solid rgba(72,191,255,.14)}.timeline{position:relative;padding-left:16px}.timeline:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--cyan),rgba(155,92,255,.2))}.timeline-item{position:relative;padding:0 0 17px 15px}.timeline-item:before{content:"";position:absolute;left:-14px;top:4px;width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 9px rgba(41,231,255,.45)}.timeline-item strong{font-size:10px}.timeline-item small{display:block;color:#657791;font-size:8px;margin-top:3px}.metric-inline{font-size:13px;color:#d5e9f8}.risk-gauge{text-align:center;margin:28px 0 18px}.gauge-track{height:12px}.risk-gauge strong{display:inline-block;font-size:28px;margin-top:12px}.risk-gauge span{color:#687b96;font-size:10px}.tool-stack{display:flex;flex-direction:column;gap:7px}.tool-stack button{padding:10px 11px;border:1px solid rgba(80,128,188,.11);border-radius:11px;background:rgba(11,23,41,.5);color:#91a3bd;text-align:left;font-size:9px}.tool-stack button:hover{color:#d9f7ff;border-color:rgba(41,231,255,.2)}.score-orb{width:138px;height:138px;border-radius:50%;display:grid;place-items:center;align-content:center;margin:16px auto;background:radial-gradient(circle at 50% 45%,rgba(55,221,255,.12),rgba(86,64,255,.08) 48%,rgba(9,15,30,.8) 49%);border:1px solid rgba(54,218,255,.22);box-shadow:inset 0 0 30px rgba(32,175,255,.06),0 0 30px rgba(75,115,255,.08)}.score-orb strong{font-size:33px;line-height:1}.score-orb span{font-size:8px;margin-top:6px;letter-spacing:.12em;color:#647893}.bar-chart{display:flex;align-items:flex-end;gap:11px;min-height:220px;padding:15px 5px 0}.bar-group{flex:1;min-width:28px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:205px;gap:7px}.bar{width:min(42px,70%);border-radius:9px 9px 3px 3px;background:linear-gradient(180deg,var(--cyan),var(--blue) 52%,rgba(114,75,255,.45));box-shadow:0 0 16px rgba(34,196,255,.08);min-height:4px}.bar-value{font-size:8px;color:#91a4bd}.bar-label{font-size:8px;color:#5f718c;text-align:center;white-space:nowrap}.bar-chart.horizontal{display:flex;flex-direction:column;align-items:stretch;gap:12px;min-height:auto;padding:8px 0}.hbar-row{display:grid;grid-template-columns:130px 1fr 38px;gap:9px;align-items:center;font-size:10px;color:#788aa4}.hbar-track{height:10px;border-radius:999px;background:rgba(101,133,178,.1);overflow:hidden}.hbar-track i{height:100%;display:block;border-radius:inherit;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink))}.principle-note,.ai-note{padding:14px;border:1px solid rgba(62,216,255,.12);background:rgba(32,210,255,.04);border-radius:13px;color:#9eb0c9;font-size:10px;line-height:1.7}.meal-timeline{display:flex;flex-direction:column;gap:9px}.meal-row{display:grid;grid-template-columns:64px 1fr auto;gap:10px;padding:11px;border-radius:12px;border:1px solid rgba(91,130,182,.1);background:rgba(9,19,36,.47);align-items:center}.meal-time{font-size:11px;color:var(--cyan);font-weight:800}.meal-row strong{font-size:10px}.meal-row small{display:block;color:#697c97;font-size:8px;margin-top:3px}.meal-tag{font-size:8px;color:#9b8cff;padding:5px 7px;border-radius:999px;background:rgba(155,92,255,.08)}.risk-number{font-size:15px;color:#ffd5dd}.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.scenario-card{padding:16px;border-radius:15px;background:rgba(9,18,34,.55);border:1px solid rgba(92,137,199,.12)}.scenario-card.featured{border-color:rgba(41,231,255,.22);box-shadow:inset 0 0 30px rgba(41,231,255,.035)}.scenario-card .scenario-title{display:flex;justify-content:space-between;align-items:center}.scenario-card h4{margin:0;font-size:12px}.scenario-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:17px}.scenario-metrics div{padding:10px 8px;background:rgba(6,13,27,.58);border-radius:10px}.scenario-metrics span{display:block;font-size:7px;color:#5d6f88;text-transform:uppercase}.scenario-metrics strong{display:block;font-size:15px;margin-top:4px}.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.plan-card{padding:19px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(155deg,rgba(11,22,41,.84),rgba(7,12,26,.9));position:relative;overflow:hidden}.plan-card.recommended{border-color:rgba(41,231,255,.28);box-shadow:0 0 34px rgba(35,181,255,.08)}.plan-card.recommended:before{content:"RECOMMENDED";position:absolute;right:10px;top:10px;font-size:7px;letter-spacing:.08em;color:var(--cyan);background:rgba(41,231,255,.07);border:1px solid rgba(41,231,255,.15);padding:4px 7px;border-radius:999px}.plan-card h3{margin:2px 0 12px;font-size:14px}.plan-price{font-size:32px;font-weight:850;letter-spacing:-.05em}.plan-price small{font-size:10px;color:#61738e}.plan-features{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;color:#8092ac;font-size:9px}.plan-features li:before{content:"✓";color:var(--green);margin-right:7px}.plan-chart-panel{margin-top:12px}.benefit-grid,.provider-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.benefit-card,.provider-card{padding:15px;border:1px solid var(--line);border-radius:15px;background:rgba(10,20,37,.62)}.benefit-icon,.provider-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(41,231,255,.07);color:var(--cyan);margin-bottom:10px}.benefit-card strong,.provider-card strong{font-size:10px}.benefit-card small,.provider-card small{display:block;font-size:8px;color:#697b95;margin-top:4px;line-height:1.5}.integration-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.integration-grid div{padding:12px;border:1px solid rgba(85,128,185,.1);border-radius:11px;background:rgba(10,20,36,.44)}.integration-grid strong{font-size:10px}.integration-grid span{display:block;color:#5f7390;font-size:7px;margin-top:4px}.compare-table{overflow:auto}.compare-row{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:4px;min-width:620px}.compare-row>div{padding:11px;border-bottom:1px solid rgba(93,127,174,.08);font-size:9px;color:#788aa5}.compare-row.header>div{font-size:8px;text-transform:uppercase;color:#536681;background:rgba(13,24,42,.4)}.compare-row strong{color:#d1dff0}.premium-hero{padding:22px;display:grid;grid-template-columns:.9fr 2.1fr;gap:20px;align-items:center;margin-bottom:12px}.premium-big{font-size:48px;font-weight:900;letter-spacing:-.06em;margin:6px 0}.premium-big small{font-size:12px;color:#6d7e98;letter-spacing:0}.premium-flow{display:grid;grid-template-columns:repeat(7,auto);gap:8px;align-items:center}.premium-flow>div{padding:12px;border-radius:12px;background:rgba(7,15,29,.52);border:1px solid rgba(83,125,182,.1)}.premium-flow span{display:block;font-size:7px;color:#61738c;text-transform:uppercase;letter-spacing:.08em}.premium-flow strong{display:block;font-size:16px;margin-top:3px}.premium-flow>b{color:#516581}.discount-scale{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.discount-band{padding:14px;border-radius:13px;border:1px solid rgba(95,134,187,.1);background:rgba(10,19,36,.48)}.discount-band.is-current{border-color:rgba(41,231,255,.25);box-shadow:inset 0 0 25px rgba(41,231,255,.04)}.discount-band span{font-size:8px;color:#657892;text-transform:uppercase}.discount-band strong{display:block;font-size:18px;margin:4px 0}.discount-band small{color:#7588a3;font-size:8px}.wallet{text-align:center;padding:18px 0}.wallet-icon{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;margin:auto;background:rgba(155,92,255,.1);color:#b994ff;border:1px solid rgba(155,92,255,.15);font-size:22px}.wallet>span:nth-child(2){display:block;font-size:8px;color:#647791;letter-spacing:.12em;margin-top:10px}.wallet strong{display:block;font-size:38px;margin-top:4px}.wallet small{font-size:9px;color:var(--green)}.challenge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.challenge-card{padding:17px;border:1px solid var(--line);border-radius:16px;background:rgba(10,20,37,.62)}.challenge-head{display:flex;justify-content:space-between;align-items:flex-start}.challenge-card h3{font-size:12px;margin:0}.challenge-card small{display:block;color:#687b95;font-size:8px;margin-top:4px}.reward-badge{font-size:9px;color:var(--purple);font-weight:800}.challenge-card .progress{height:10px;margin:14px 0 7px}.challenge-foot{display:flex;justify-content:space-between;font-size:8px;color:#6b7e99}.provider-grid{grid-template-columns:repeat(4,1fr)}.provider-card button,.appointment-card button{margin-top:12px;width:100%;padding:8px;border-radius:9px;border:1px solid rgba(41,231,255,.14);background:rgba(41,231,255,.04);color:#99effa;font-size:8px}.pathway-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.pathway-card{padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(9,19,35,.62)}.pathway-card h3{font-size:12px;margin:0 0 14px}.pathway-flow{display:flex;align-items:center;gap:8px;overflow:auto}.pathway-step{min-width:110px;padding:11px;border-radius:11px;background:rgba(10,23,42,.65);border:1px solid rgba(88,130,185,.1);font-size:8px;color:#8193ae;text-align:center}.pathway-arrow{color:#4e6280}.appointment-grid{display:flex;flex-direction:column;gap:9px}.appointment-card{padding:12px;border:1px solid rgba(90,130,185,.1);border-radius:12px;background:rgba(9,20,36,.48);display:grid;grid-template-columns:56px 1fr 86px;gap:10px;align-items:center}.appointment-time{font-size:12px;color:var(--cyan);font-weight:800}.appointment-card strong{font-size:10px}.appointment-card small{display:block;color:#647791;font-size:8px;margin-top:3px}.coach-actions{display:flex;flex-direction:column;gap:10px}.coach-action{padding:13px;border-radius:13px;border:1px solid rgba(88,128,184,.11);background:rgba(10,20,37,.48);display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center}.coach-action .num{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:rgba(41,231,255,.07);color:var(--cyan);font-size:9px;font-weight:900}.coach-action strong{font-size:10px}.coach-action small{display:block;font-size:8px;color:#6a7d98;margin-top:3px}.coach-action em{font-size:8px;color:var(--green);font-style:normal}.coach-score{display:flex;align-items:center;gap:14px}.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;flex:1}.mini-grid div{padding:10px;border-radius:10px;background:rgba(9,19,35,.55);border:1px solid rgba(86,128,180,.09)}.mini-grid span{display:block;color:#657894;font-size:7px;text-transform:uppercase}.mini-grid strong{font-size:13px}.calendar-meal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.calendar-card{padding:15px;border:1px solid rgba(91,131,183,.11);border-radius:14px;background:rgba(10,20,37,.5)}.calendar-card time{font-size:11px;color:var(--cyan);font-weight:800}.calendar-card .calendar-event{font-size:8px;color:#775ef7;margin:7px 0 10px}.calendar-card strong{font-size:10px}.calendar-card small{display:block;font-size:8px;color:#687b96;margin-top:4px;line-height:1.45}.recovery-blocks{display:flex;flex-direction:column;gap:8px}.recovery-block{padding:12px;border-radius:12px;border:1px solid rgba(90,129,182,.1);background:rgba(9,20,36,.48)}.recovery-block span{font-size:8px;color:var(--cyan)}.recovery-block strong{display:block;font-size:10px;margin-top:3px}.recovery-block small{display:block;color:#677a94;font-size:8px;margin-top:3px}.ai-summary{padding:20px;border-radius:15px;background:linear-gradient(145deg,rgba(15,34,57,.55),rgba(22,14,46,.42));border:1px solid rgba(73,201,255,.16);font-size:13px;line-height:1.9;color:#bed0e5;min-height:190px}.ai-summary strong{color:#ecfaff}.ethics-strip{display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:13px;border-radius:12px;border:1px solid rgba(64,229,161,.1);background:rgba(64,229,161,.03);color:#70839e;font-size:9px}.ethics-strip span{color:var(--green)}.app-footer{display:flex;justify-content:space-between;gap:20px;color:#42536b;font-size:8px;letter-spacing:.06em;text-transform:uppercase;padding:18px 2px 0}.bottom-nav{position:fixed;left:var(--side-w);right:0;bottom:0;z-index:40;height:var(--bottom-h);display:flex;justify-content:center;gap:4px;padding:9px 16px;background:rgba(4,8,18,.9);backdrop-filter:blur(22px);border-top:1px solid var(--line)}.bottom-nav .bottom-btn{min-width:86px;border:1px solid transparent;background:transparent;color:#667894;border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;align-items:center;justify-content:center;font-size:8px;text-transform:uppercase;font-weight:800;letter-spacing:.05em}.bottom-btn .icon{font-size:16px}.bottom-btn.is-active{color:var(--cyan);border-color:rgba(41,231,255,.18);background:linear-gradient(145deg,rgba(35,126,255,.12),rgba(115,76,255,.1));box-shadow:inset 0 0 20px rgba(41,231,255,.025)}.simulator-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:70;opacity:0;pointer-events:none;transition:.2s}.simulator-backdrop.open{opacity:1;pointer-events:auto}.simulator{position:fixed;right:0;top:0;bottom:0;width:min(390px,92vw);z-index:80;background:rgba(6,11,24,.98);border-left:1px solid rgba(41,231,255,.18);box-shadow:-30px 0 80px rgba(0,0,0,.4);padding:22px;transform:translateX(102%);transition:.24s;overflow:auto}.simulator.open{transform:none}.sim-head{display:flex;justify-content:space-between;align-items:flex-start}.sim-head h3{font-size:21px;margin:4px 0}.sim-copy{font-size:9px;line-height:1.7;color:#71839d;margin:7px 0 20px}.input-group{margin-bottom:17px}.input-group label{display:flex;justify-content:space-between;gap:12px;font-size:10px;color:#8295af;margin-bottom:9px}.input-group label strong{color:#dcedf9}.input-group input[type=range]{width:100%;accent-color:#43dbff}.input-group select{width:100%;background:#091427;color:#d4e8f5;border:1px solid var(--line);border-radius:10px;padding:10px}.sim-result{padding:16px;text-align:center;border:1px solid rgba(41,231,255,.16);border-radius:15px;background:radial-gradient(circle at center,rgba(41,231,255,.07),rgba(155,92,255,.03))}.sim-result span{display:block;font-size:8px;color:#6a7d97;text-transform:uppercase;letter-spacing:.1em}.sim-result strong{display:block;font-size:42px;margin-top:2px}.sim-result small{font-size:8px;color:#647791}
+@media(max-width:1100px){:root{--side-w:74px}.main-shell{padding-left:18px;padding-right:18px}.kpi-grid.four{grid-template-columns:repeat(2,1fr)}.span-8,.span-7{grid-column:span 12}.span-5,.span-4,.span-3,.span-6{grid-column:span 6}.program-grid,.benefit-grid,.provider-grid,.calendar-meal-grid{grid-template-columns:repeat(2,1fr)}.premium-hero{grid-template-columns:1fr}.premium-flow{grid-template-columns:repeat(4,1fr)}.premium-flow>b{display:none}.scenario-grid{grid-template-columns:1fr}.plan-grid{grid-template-columns:1fr}.bottom-nav{justify-content:flex-start;overflow-x:auto}.bottom-nav .bottom-btn{min-width:82px}}
+@media(max-width:760px){:root{--side-w:0px;--bottom-h:72px}.side-nav{display:none}.main-shell{margin-left:0;padding:0 12px calc(var(--bottom-h) + 30px)}.topbar{min-height:76px}.topbar .eyebrow{display:none}.topbar h1{font-size:20px}.live-badge{display:none}.ghost-btn{padding:9px 10px;font-size:9px}.prototype-strip{font-size:9px;line-height:1.45}.section-head{align-items:flex-start;flex-direction:column;gap:10px}.section-head h2{font-size:26px}.tabs{width:100%}.tab-btn{flex:1}.kpi-grid.four{grid-template-columns:repeat(2,1fr);gap:9px}.kpi-card{min-height:120px;padding:13px}.kpi-value{font-size:28px}.grid-12{gap:10px}.span-12,.span-8,.span-7,.span-6,.span-5,.span-4,.span-3{grid-column:span 12}.panel{padding:14px}.legend{display:none}.chart-shell{height:210px}.program-grid,.benefit-grid,.provider-grid,.calendar-meal-grid,.challenge-grid,.pathway-grid{grid-template-columns:1fr}.alert-grid{grid-template-columns:1fr}.radar-wrap{display:block}.radar-wrap svg{width:100%;height:280px}.radar-legend{display:grid;grid-template-columns:repeat(2,1fr)}.routine-grid{grid-template-columns:1fr}.portfolio-table{margin:0 -4px}.data-row{min-width:650px}.premium-flow{grid-template-columns:repeat(2,1fr)}.discount-scale{grid-template-columns:repeat(2,1fr)}.integration-grid{grid-template-columns:repeat(2,1fr)}.coach-score{flex-direction:column}.app-footer{display:none}.bottom-nav{left:0;padding:7px 6px;gap:2px}.bottom-nav .bottom-btn{min-width:72px;padding:6px 7px;font-size:7px}.bottom-btn .icon{font-size:15px}.appointment-card{grid-template-columns:50px 1fr}.appointment-card button{grid-column:1/-1;margin-top:0}.radar-legend div{justify-content:flex-start}.premium-big{font-size:42px}}
+@media(max-width:460px){.kpi-grid.four{grid-template-columns:1fr 1fr}.kpi-card{min-height:112px}.kpi-value{font-size:25px}.kpi-foot{gap:5px;flex-wrap:wrap}.topbar-actions .avatar{display:none}.premium-flow{grid-template-columns:1fr 1fr}.discount-scale{grid-template-columns:1fr}.integration-grid{grid-template-columns:1fr}.scenario-metrics{grid-template-columns:1fr}.panel-head{align-items:flex-start}.risk-row{grid-template-columns:92px 1fr 28px}.calendar-meal-grid{grid-template-columns:1fr}.coach-action{grid-template-columns:30px 1fr}.coach-action em{grid-column:2}.bottom-nav .bottom-btn{min-width:68px}}
+
+/* === v1.1 Floating two-row bottom navigation === */
+:root{--bottom-h:142px}
+.bottom-nav{
+  left:calc(var(--side-w) + 22px);
+  right:22px;
+  bottom:18px;
+  width:auto;
+  max-width:760px;
+  height:auto;
+  min-height:118px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:repeat(2,52px);
+  justify-content:stretch;
+  align-content:center;
+  gap:6px;
+  padding:8px;
+  overflow:visible;
+  background:rgba(5,10,24,.56);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);
+  backdrop-filter:blur(28px) saturate(150%);
+  border:1px solid rgba(91,180,255,.22);
+  border-radius:24px;
+  box-shadow:0 18px 55px rgba(0,0,0,.44),0 0 40px rgba(54,120,255,.08),inset 0 1px 0 rgba(255,255,255,.045);
+  isolation:isolate;
+}
+.bottom-nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  border-radius:inherit;
+  background:linear-gradient(135deg,rgba(41,231,255,.045),rgba(155,92,255,.025) 52%,rgba(255,255,255,.015));
+}
+.bottom-nav .bottom-btn{
+  width:100%;
+  min-width:0;
+  min-height:0;
+  border:1px solid transparent;
+  background:rgba(9,17,34,.26);
+  border-radius:15px;
+  padding:6px 8px;
+  gap:3px;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease,color .18s ease;
+}
+.bottom-nav .bottom-btn:hover{
+  transform:translateY(-1px);
+  color:#dffaff;
+  border-color:rgba(41,231,255,.16);
+  background:rgba(31,68,116,.24);
+}
+.bottom-nav .bottom-btn.is-active{
+  color:var(--cyan);
+  border-color:rgba(41,231,255,.24);
+  background:linear-gradient(145deg,rgba(35,126,255,.18),rgba(115,76,255,.14));
+  box-shadow:inset 0 0 22px rgba(41,231,255,.045),0 0 18px rgba(41,231,255,.055);
+}
+.bottom-nav .bottom-btn .icon{font-size:17px}
+
+@media(max-width:1100px){
+  .bottom-nav{
+    left:calc(var(--side-w) + 18px);
+    right:18px;
+    max-width:680px;
+    justify-content:stretch;
+    overflow:visible;
+  }
+  .bottom-nav .bottom-btn{min-width:0}
+}
+
+@media(max-width:760px){
+  :root{--bottom-h:136px}
+  .bottom-nav{
+    left:10px;
+    right:10px;
+    bottom:10px;
+    max-width:none;
+    min-height:112px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-rows:repeat(2,49px);
+    gap:5px;
+    padding:7px;
+    border-radius:22px;
+    background:rgba(5,10,24,.52);
+    -webkit-backdrop-filter:blur(26px) saturate(155%);
+    backdrop-filter:blur(26px) saturate(155%);
+  }
+  .bottom-nav .bottom-btn{
+    min-width:0;
+    padding:5px 4px;
+    font-size:7px;
+    border-radius:13px;
+  }
+  .bottom-nav .bottom-btn .icon{font-size:15px}
+}
+
+@media(max-width:460px){
+  :root{--bottom-h:132px}
+  .bottom-nav{
+    left:8px;
+    right:8px;
+    bottom:8px;
+    min-height:108px;
+    grid-template-rows:repeat(2,47px);
+    gap:4px;
+    padding:6px;
+    border-radius:20px;
+  }
+  .bottom-nav .bottom-btn{min-width:0;font-size:6.5px;padding:4px 2px}
+}
+
+</style>
+
+<style id="engine-map-fix">
+/* Core intelligence map: compact connectors, high-contrast modules, responsive without overlap. */
+.engine-map{
+  position:relative;min-height:470px;margin:0 0 14px;padding:20px;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:radial-gradient(circle at 50% 48%,rgba(41,231,255,.10),transparent 24%),linear-gradient(160deg,rgba(11,22,42,.92),rgba(6,11,24,.96));
+  overflow:hidden;isolation:isolate;
+}
+.engine-map-grid{
+  position:relative;z-index:2;display:grid;
+  grid-template-columns:minmax(210px,1fr) 190px minmax(210px,1fr);
+  gap:18px;align-items:center;min-height:428px;
+}
+.engine-side{display:grid;gap:10px;align-content:center;min-width:0}
+.engine-side.left{grid-template-rows:repeat(3,minmax(86px,auto))}
+.engine-side.right{grid-template-rows:repeat(4,minmax(78px,auto))}
+.engine-node{
+  appearance:none;-webkit-appearance:none;width:100%;min-width:0;min-height:78px;text-align:left;
+  padding:12px 14px;border-radius:14px;border:1px solid rgba(89,176,230,.28);
+  background:linear-gradient(145deg,rgba(11,28,51,.96),rgba(7,18,36,.94));color:var(--text);
+  box-shadow:0 12px 28px rgba(0,0,0,.22),inset 0 0 18px rgba(41,231,255,.025);
+  position:relative;z-index:3;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+  font:inherit;touch-action:manipulation;
+}
+.engine-node:hover,.engine-node:focus-visible{
+  border-color:rgba(41,231,255,.68);background:linear-gradient(145deg,rgba(12,35,61,.98),rgba(8,22,43,.98));
+  box-shadow:0 14px 34px rgba(0,0,0,.26),0 0 24px rgba(41,231,255,.08);transform:translateY(-1px);outline:none;
+}
+.engine-node:active{transform:translateY(0) scale(.995)}
+.engine-node strong{display:block;font-size:12.5px;line-height:1.2;letter-spacing:.01em}
+.engine-node small{display:block;margin-top:4px;color:#8ca2c1;font-size:9.5px;line-height:1.42}
+.engine-node .node-icon{
+  display:inline-grid;place-items:center;width:27px;height:27px;margin-bottom:7px;border-radius:8px;
+  border:1px solid rgba(41,231,255,.12);background:rgba(41,231,255,.075);color:var(--cyan);font-size:13px
+}
+.engine-center{position:relative;z-index:4;min-width:0;text-align:center}
+.engine-core{
+  width:168px;height:168px;margin:auto;border-radius:50%;display:grid;place-items:center;text-align:center;position:relative;
+  border:1px solid rgba(41,231,255,.55);
+  background:radial-gradient(circle at 40% 35%,rgba(41,231,255,.28),rgba(55,62,255,.14) 42%,rgba(7,14,31,.98) 72%);
+  box-shadow:0 0 46px rgba(41,231,255,.17),inset 0 0 38px rgba(41,231,255,.09)
+}
+.engine-core:before,.engine-core:after{content:"";position:absolute;border:1px solid rgba(41,231,255,.16);border-radius:50%;inset:-11px;pointer-events:none}
+.engine-core:after{inset:-22px;border-color:rgba(142,80,255,.11)}
+.engine-core strong{display:block;font-size:27px;line-height:1;letter-spacing:-.045em}
+.engine-core span{display:block;color:var(--cyan);font-size:9.5px;font-weight:900;letter-spacing:.13em;margin-top:5px}
+.engine-core small{display:block;color:#8da1be;font-size:9px;margin-top:7px}
+.engine-lines{position:absolute;inset:20px;z-index:1;width:calc(100% - 40px);height:calc(100% - 40px);pointer-events:none;overflow:visible}
+.engine-lines path{fill:none;stroke:url(#engineStroke);stroke-width:1.25;stroke-dasharray:4 7;vector-effect:non-scaling-stroke;opacity:.82}
+.engine-lines circle{fill:var(--cyan);opacity:.72;filter:drop-shadow(0 0 4px rgba(41,231,255,.6))}
+.engine-caption{text-align:center;color:#7890b0;font-size:9.5px;margin-top:7px;letter-spacing:.055em;line-height:1.4}
+.engine-map-note{margin:10px 0 0;text-align:center;color:#7187a6;font-size:9.5px;line-height:1.45}
+
+@media(max-width:980px){
+  .engine-map-grid{grid-template-columns:minmax(185px,1fr) 158px minmax(185px,1fr);gap:12px}
+  .engine-core{width:146px;height:146px}.engine-core:before{inset:-9px}.engine-core:after{inset:-17px}
+  .engine-node{padding:11px 12px}.engine-node strong{font-size:11.5px}.engine-node small{font-size:9px}
+}
+
+@media(max-width:760px){
+  .engine-map{min-height:auto;padding:13px 12px 14px;overflow:visible}
+  .engine-map-grid{grid-template-columns:1fr;gap:10px;min-height:0}
+  .engine-center{grid-row:1;margin:8px 0 10px}
+  .engine-side.left{grid-row:2;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;gap:8px}
+  .engine-side.right{grid-row:3;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;gap:8px}
+  .engine-side.left .engine-node:last-child{grid-column:1/-1}
+  .engine-node{min-height:88px;padding:11px 12px;border-radius:13px}
+  .engine-node strong{font-size:11.5px}.engine-node small{font-size:10px;line-height:1.35}
+  .engine-node .node-icon{width:25px;height:25px;margin-bottom:6px}
+  .engine-core{width:138px;height:138px}.engine-core strong{font-size:25px}.engine-core span{font-size:9px}.engine-core small{font-size:9px}
+  .engine-lines{display:none}
+  .engine-caption{font-size:10px;margin-top:6px}
+  .engine-map-note{font-size:10px;margin-top:9px}
+}
+
+@media(max-width:390px){
+  .engine-map{padding-left:10px;padding-right:10px}
+  .engine-side.left,.engine-side.right{gap:7px}
+  .engine-node{min-height:84px;padding:10px}
+  .engine-node strong{font-size:11px}.engine-node small{font-size:9.5px}
+  .engine-core{width:132px;height:132px}
+}
+</style>
+
+<style id="responsive-qa-fix">
+/* Mobile readability + touch QA. Keep the visual density without making text microscopic. */
+button,input,select,textarea{font-family:inherit}
+button{touch-action:manipulation}
+html,body{max-width:100%;overflow-x:clip}
+svg,canvas,img{max-width:100%}
+@media(max-width:760px){
+  body{font-size:13px;line-height:1.45;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .main-shell{padding-left:12px;padding-right:12px}
+  .topbar{gap:10px}.topbar h1{font-size:21px;line-height:1.15}
+  .ghost-btn,.tab-btn,.bottom-nav .bottom-btn{min-height:44px}
+  .ghost-btn{font-size:10px!important}
+  .prototype-strip{font-size:10px!important;line-height:1.5}
+  .bottom-nav .bottom-btn{font-size:9px!important;line-height:1.15;padding:5px 3px!important}
+  .bottom-nav .bottom-btn .icon{font-size:15px!important}
+  body small{font-size:10px!important}
+  body :is(.mini-label,.legend,.alert-level,.data-row.header,.identity-grid span,.bar-value,.bar-label,.meal-tag,.scenario-metrics span,.plan-card.recommended:before,.integration-grid span,.compare-row.header>div,.premium-flow span,.discount-band span,.discount-band small,.wallet>span:nth-child(2),.challenge-foot,.provider-card button,.appointment-card button,.pathway-step,.mini-grid span,.calendar-card .calendar-event,.recovery-block span,.ethics-strip,.app-footer,.sim-result span,.sim-result small){font-size:10px!important;line-height:1.35}
+  .panel,.card,.kpi-card{min-width:0}
+  .kpi-value{line-height:1.05}
+}
+@media(max-width:460px){
+  .bottom-nav .bottom-btn{font-size:8.5px!important}
+  .main-shell{padding-left:10px;padding-right:10px}
+  .topbar-actions{gap:6px}
+}
+</style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="side-nav" aria-label="Primary navigation">
+      <div class="brand compact">
+        <div class="brand-mark">V</div>
+        <div><strong>VITALITY</strong><span>COVER AI</span></div>
+      </div>
+      <div class="nav-stack" id="sideNav"></div>
+      <div class="side-footer">
+        <div class="status-dot"></div>
+        <div><strong>MVP / PROTOTYPE</strong><span>Simulated data only</span></div>
+      </div>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI WELLNESS RISK + REWARDS + INSURANCE INTELLIGENCE</p>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="live-badge"><span></span> LIVE SIMULATION</div>
+          <button type="button" class="ghost-btn" id="openSimulator">Tune Inputs</button>
+          <div class="avatar" title="Demo member">AK</div>
+        </div>
+      </header>
+
+      <div class="prototype-strip">
+        <strong>PROTOTYPE:</strong> Simulated wellness data and projected premium estimates. Not an insurance quote, medical diagnosis, or regulated underwriting decision.
+      </div>
+
+      <section class="page is-active" data-page="dashboard">
+        <div class="section-head">
+          <div><span class="section-kicker">01 / COMMAND CENTER</span><h2>Dashboard</h2></div>
+          <div class="tabs" data-tabs="dashboard">
+            <button type="button" class="tab-btn is-active" data-tab="overview">Overview</button>
+            <button type="button" class="tab-btn" data-tab="portfolio">Portfolio</button>
+            <button type="button" class="tab-btn" data-tab="alerts">Alerts</button>
+          </div>
+        </div>
+
+        <div class="tab-panel is-active" data-tab-panel="dashboard:overview">
+<div class="engine-map" aria-label="Vitality AI Engine connected modules">
+<svg class="engine-lines" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+<defs><linearGradient id="engineStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4d7dff" stop-opacity=".30"/><stop offset=".52" stop-color="#29e7ff" stop-opacity=".90"/><stop offset="1" stop-color="#9b5cff" stop-opacity=".35"/></linearGradient></defs>
+<!-- Shorter connector paths: cards stay readable while the core still reads as a connected AI system. -->
+<path d="M292 78 C350 78 392 145 438 183"/><path d="M292 210 C356 210 390 210 438 210"/><path d="M292 342 C350 342 392 275 438 237"/>
+<path d="M708 55 C650 55 610 135 562 180"/><path d="M708 155 C650 155 610 185 562 198"/><path d="M708 265 C650 265 610 235 562 222"/><path d="M708 365 C650 365 610 285 562 240"/>
+<circle cx="438" cy="183" r="2.8"/><circle cx="438" cy="210" r="2.8"/><circle cx="438" cy="237" r="2.8"/>
+<circle cx="562" cy="180" r="2.8"/><circle cx="562" cy="198" r="2.8"/><circle cx="562" cy="222" r="2.8"/><circle cx="562" cy="240" r="2.8"/>
+</svg>
+<div class="engine-map-grid">
+  <div class="engine-side left">
+    <button type="button" class="engine-node" data-engine-target="health" data-page-target="health" aria-label="Open Health Signals module"><span class="node-icon">⌁</span><strong>Health Signals</strong><small>Sleep · activity · recovery · nutrition · stress</small></button>
+    <button type="button" class="engine-node" data-engine-target="member" data-page-target="member" aria-label="Open Member 360 module"><span class="node-icon">◎</span><strong>Member 360</strong><small>Personal baseline · history · preventive profile</small></button>
+    <button type="button" class="engine-node" data-engine-target="coach" data-page-target="coach" aria-label="Open AI Coach module"><span class="node-icon">✦</span><strong>AI Coach</strong><small>Next-best actions · recovery · prevention</small></button>
+  </div>
+  <div class="engine-center">
+    <div class="engine-core" aria-label="AI Vitality Engine"><div><strong>AI</strong><span>VITALITY ENGINE</span><small>Signals → Risk → Action</small></div></div>
+    <div class="engine-caption">Adaptive intelligence layer</div>
+  </div>
+  <div class="engine-side right">
+    <button type="button" class="engine-node" data-engine-target="risk" data-page-target="risk" aria-label="Open Risk Engine module"><span class="node-icon">△</span><strong>Risk Engine</strong><small>Burnout · claims pressure · risk trajectory</small></button>
+    <button type="button" class="engine-node" data-engine-target="coverage" data-page-target="coverage" aria-label="Open Coverage Studio module"><span class="node-icon">◇</span><strong>Coverage Studio</strong><small>Plan intelligence · benefits · simulated pricing</small></button>
+    <button type="button" class="engine-node" data-engine-target="rewards" data-page-target="rewards" aria-label="Open Rewards and Premium module"><span class="node-icon">★</span><strong>Rewards &amp; Premium</strong><small>Eligibility · points · discount potential</small></button>
+    <button type="button" class="engine-node" data-engine-target="care" data-page-target="care" aria-label="Open Care Network module"><span class="node-icon">＋</span><strong>Care Network</strong><small>Preventive pathways · providers · follow-up care</small></button>
+  </div>
+</div>
+<div class="engine-map-note">Tap any connected module to open its working dashboard.</div>
+</div>
+          <div class="kpi-grid four">
+            <article class="kpi-card glow-cyan"><div class="kpi-label">Vitality Score</div><div class="kpi-value"><span data-bind="vitality">78</span><small>/100</small></div><div class="kpi-foot"><span class="pill healthy" data-bind="tier">SILVER</span><span data-bind="vitalityDelta">+4.2%</span></div></article>
+            <article class="kpi-card glow-purple"><div class="kpi-label">Projected Premium</div><div class="kpi-value"><span>$</span><span data-bind="premium">299</span></div><div class="kpi-foot"><span class="pill">SIMULATED</span><span data-bind="discountText">12% behavior discount</span></div></article>
+            <article class="kpi-card"><div class="kpi-label">Burnout Risk</div><div class="kpi-value"><span data-bind="burnout">39</span><small>/100</small></div><div class="kpi-foot"><span class="risk-dot" data-risk-dot="burnout"></span><span data-bind="burnoutLabel">Moderate</span></div></article>
+            <article class="kpi-card"><div class="kpi-label">Rewards Points</div><div class="kpi-value"><span data-bind="points">1,540</span></div><div class="kpi-foot"><span class="pill healthy">ACTIVE</span><span data-bind="pointsWeek">+640 this week</span></div></article>
+          </div>
+
+          <div class="grid-12">
+            <article class="panel span-8">
+              <div class="panel-head"><div><span class="panel-kicker">HEALTH TRAJECTORY</span><h3>7-Day Health Signal Trend</h3></div><div class="legend"><span><i class="cyan"></i> Vitality</span><span><i class="purple"></i> Recovery</span><span><i class="pink"></i> Stress resilience</span></div></div>
+              <div class="chart-shell"><svg class="line-chart" id="dashboardTrend" viewBox="0 0 760 250" preserveAspectRatio="none"></svg></div>
+            </article>
+            <article class="panel span-4">
+              <div class="panel-head"><div><span class="panel-kicker">LIVE PROFILE</span><h3>Risk Mix</h3></div><span class="mini-label">0 LOW → 100 HIGH</span></div>
+              <div class="risk-bars" id="dashboardRiskBars"></div>
+            </article>
+
+            <article class="panel span-5">
+              <div class="panel-head"><div><span class="panel-kicker">AI PRIORITY</span><h3>Next Best Actions</h3></div><span class="ai-chip">AI</span></div>
+              <div class="action-list" id="nextBestActions"></div>
+            </article>
+            <article class="panel span-4">
+              <div class="panel-head"><div><span class="panel-kicker">FORECAST</span><h3>30-Day Score Path</h3></div><span class="delta-positive" data-bind="forecastDelta">+8 pts</span></div>
+              <div class="forecast-chart" id="scoreForecast"></div>
+              <p class="panel-note">Projection uses behavior smoothing rather than reacting to one difficult day.</p>
+            </article>
+            <article class="panel span-3">
+              <div class="panel-head"><div><span class="panel-kicker">PRESSURE</span><h3>Claims Pressure</h3></div></div>
+              <div class="donut" id="claimsDonut"><div><strong data-bind="claims">34</strong><span>/100</span></div></div>
+              <div class="micro-stats"><span>Preventive <strong data-bind="preventiveRisk">18%</strong></span><span>Lifestyle <strong data-bind="lifestyle">31%</strong></span></div>
+            </article>
+
+            <article class="panel span-12">
+              <div class="panel-head"><div><span class="panel-kicker">PROGRAMS</span><h3>Active Programs</h3></div><span class="mini-label">PREVENTION BEFORE COST</span></div>
+              <div class="program-grid">
+                <div class="program-card"><span class="program-icon">☾</span><div><strong>Sleep Recovery</strong><small>Day 4 of 7</small></div><div class="progress"><i style="width:57%"></i></div></div>
+                <div class="program-card"><span class="program-icon">↗</span><div><strong>10K Steps Sprint</strong><small data-bind="stepsProgram">6,800 / 10,000</small></div><div class="progress"><i id="stepsProgress"></i></div></div>
+                <div class="program-card"><span class="program-icon">◌</span><div><strong>Stress Reset</strong><small>2 sessions remaining</small></div><div class="progress"><i style="width:68%"></i></div></div>
+                <div class="program-card"><span class="program-icon">✦</span><div><strong>Meal Rhythm</strong><small data-bind="nutritionProgram">74% adherence</small></div><div class="progress"><i id="nutritionProgress"></i></div></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-tab-panel="dashboard:portfolio">
+          <article class="panel">
+            <div class="panel-head"><div><span class="panel-kicker">B2B2C VIEW</span><h3>Population Portfolio</h3></div><span class="mini-label">DEMO COHORT</span></div>
+            <div class="portfolio-table" id="portfolioTable"></div>
+            <div class="chart-shell short"><svg class="line-chart" id="portfolioChart" viewBox="0 0 760 210" preserveAspectRatio="none"></svg></div>
+          </article>
+        </div>
+
+        <div class="tab-panel" data-tab-panel="dashboard:alerts">
+          <div class="alert-grid" id="alertsGrid"></div>
+        </div>
+      </section>
+
+      <section class="page" data-page="member">
+        <div class="section-head">
+          <div><span class="section-kicker">02 / MEMBER INTELLIGENCE</span><h2>Member 360</h2></div>
+          <div class="tabs" data-tabs="member"><button type="button" class="tab-btn is-active" data-tab="profile">Profile</button><button type="button" class="tab-btn" data-tab="behavior">Behavior</button><button type="button" class="tab-btn" data-tab="engagement">Engagement</button></div>
+        </div>
+        <div class="tab-panel is-active" data-tab-panel="member:profile">
+          <div class="grid-12">
+            <article class="panel span-5 member-identity">
+              <div class="member-top"><div class="avatar large">AK</div><div><span class="panel-kicker">DEMO MEMBER</span><h3>Alex Karim</h3><p data-bind="memberType">Founder</p></div></div>
+              <div class="identity-grid"><div><span>Current Tier</span><strong data-bind="tier">Silver</strong></div><div><span>Vitality Score</span><strong data-bind="vitality">78</strong></div><div><span>Burnout Risk</span><strong data-bind="burnout">39</strong></div><div><span>Projected Premium</span><strong>$<b data-bind="premium">299</b></strong></div></div>
+              <div class="consent-card"><span class="shield">◈</span><div><strong>Consent-led profile</strong><small>Demo data. Sensitive health data should use minimization, encryption and explicit permissions.</small></div></div>
+            </article>
+            <article class="panel span-7">
+              <div class="panel-head"><div><span class="panel-kicker">COMPOSITE SIGNAL</span><h3>Health Signal Wheel</h3></div><span class="mini-label">LIVE INPUTS</span></div>
+              <div class="radar-wrap"><svg id="signalRadar" viewBox="0 0 500 360"></svg><div class="radar-legend" id="radarLegend"></div></div>
+            </article>
+          </div>
+        </div>
+        <div class="tab-panel" data-tab-panel="member:behavior">
+          <div class="grid-12">
+            <article class="panel span-7"><div class="panel-head"><div><span class="panel-kicker">ADHERENCE</span><h3>Healthy Routine Adherence</h3></div><span class="mini-label">7-DAY</span></div><div class="routine-grid" id="routineGrid"></div></article>
+            <article class="panel span-5"><div class="panel-head"><div><span class="panel-kicker">COMMITMENTS</span><h3>Weekly Commitment Builder</h3></div><span class="ai-chip">LIVE</span></div><div class="check-list" id="commitmentList"></div><button type="button" class="primary-btn full" id="saveCommitments">Update weekly plan</button><div class="save-note" id="commitmentSaved">Plan synced to demo profile.</div></article>
+          </div>
+        </div>
+        <div class="tab-panel" data-tab-panel="member:engagement">
+          <div class="grid-12">
+            <article class="panel span-6"><div class="panel-head"><div><span class="panel-kicker">PROGRAM FUNNEL</span><h3>Engagement Funnel</h3></div></div><div class="funnel" id="engagementFunnel"></div></article>
+            <article class="panel span-6"><div class="panel-head"><div><span class="panel-kicker">RECENT SIGNALS</span><h3>Activity Timeline</h3></div></div><div class="timeline" id="activityTimeline"></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" data-page="health">
+        <div class="section-head">
+          <div><span class="section-kicker">03 / BEHAVIOR DATA</span><h2>Health Signals</h2></div>
+          <div class="tabs" data-tabs="health"><button type="button" class="tab-btn is-active" data-tab="sleep">Sleep</button><button type="button" class="tab-btn" data-tab="activity">Activity</button><button type="button" class="tab-btn" data-tab="nutrition">Nutrition</button><button type="button" class="tab-btn" data-tab="stress">Stress</button></div>
+        </div>
+        <div class="tab-panel is-active" data-tab-panel="health:sleep">
+          <div class="grid-12">
+            <article class="panel span-8"><div class="panel-head"><div><span class="panel-kicker">7-DAY STABILITY</span><h3>Sleep Stability</h3></div><strong class="metric-inline"><span data-bind="sleep">7.2</span>h avg</strong></div><div class="chart-shell"><svg class="line-chart" id="sleepChart" viewBox="0 0 760 250" preserveAspectRatio="none"></svg></div></article>
+            <article class="panel span-4"><div class="panel-head"><div><span class="panel-kicker">SLEEP DEBT</span><h3>Risk Indicator</h3></div></div><div class="risk-gauge"><div class="gauge-track"><i id="sleepRiskGauge"></i></div><strong data-bind="sleepDebt">32</strong><span>/100</span></div><div class="tool-stack"><button type="button">AI bedtime routine</button><button type="button">Sleep debt alerts</button><button type="button">Late caffeine warning</button><button type="button">Recovery day recommendation</button></div></article>
+          </div>
+        </div>
+        <div class="tab-panel" data-tab-panel="health:activity">
+          <div class="grid-12"><article class="panel span-8"><div class="panel-head"><div><span class="panel-kicker">MOVEMENT LOAD</span><h3>Activity Load</h3></div><strong class="metric-inline"><span data-bind="stepsFormatted">6,800</span> steps</strong></div><div class="bar-chart" id="activityChart"></div></article><article class="panel span-4"><div class="panel-head"><div><span class="panel-kicker">ACTIVITY RISK</span><h3>Movement Profile</h3></div></div><div class="score-orb"><strong data-bind="activityScore">68</strong><span>ACTIVITY</span></div><div class="tool-stack"><button type="button">Step optimizer</button><button type="button">Sedentary alerts</button><button type="button">Walking blocks</button><button type="button">Travel day planner</button></div></article></div>
+        </div>
+        <div class="tab-panel" data-tab-panel="health:nutrition">
+          <div class="grid-12"><article class="panel span-7"><div class="panel-head"><div><span class="panel-kicker">CALENDAR-AWARE AI</span><h3>Meal Timing Intelligence</h3></div><span class="ai-chip">AI NUTRITIONIST</span></div><div class="meal-timeline" id="mealTimeline"></div></article><article class="panel span-5"><div class="panel-head"><div><span class="panel-kicker">NUTRITION</span><h3>Daily Stability</h3></div><strong class="metric-inline"><span data-bind="nutrition">74</span>/100</strong></div><div class="chart-shell short"><svg class="line-chart" id="nutritionChart" viewBox="0 0 500 190" preserveAspectRatio="none"></svg></div><div class="tool-stack"><button type="button">Meal Timing AI</button><button type="button">Hydration tracker</button><button type="button">Protein tracker</button><button type="button">Healthy menu suggestion</button><button type="button">Late-night crash prevention</button></div></article></div>
+        </div>
+        <div class="tab-panel" data-tab-panel="health:stress">
+          <div class="grid-12"><article class="panel span-8"><div class="panel-head"><div><span class="panel-kicker">WORKLOAD SIGNAL</span><h3>Stress Load Curve</h3></div><strong class="metric-inline"><span data-bind="stress">42</span>/100</strong></div><div class="chart-shell"><svg class="line-chart" id="stressChart" viewBox="0 0 760 250" preserveAspectRatio="none"></svg></div></article><article class="panel span-4"><div class="panel-head"><div><span class="panel-kicker">INTERVENTION</span><h3>Recovery Toolkit</h3></div></div><div class="tool-stack"><button type="button">Burnout detector</button><button type="button">90-second decompression</button><button type="button">Breathing reset</button><button type="button">Therapy routing</button><button type="button">Workload warning</button></div><div class="principle-note">A difficult week triggers support, not punishment. Persistent 30–60 day deterioration triggers review.</div></article></div>
+        </div>
+      </section>
+
+      <section class="page" data-page="risk">
+        <div class="section-head"><div><span class="section-kicker">04 / PREDICTIVE LAYER</span><h2>Risk Engine</h2></div><div class="tabs" data-tabs="risk"><button type="button" class="tab-btn is-active" data-tab="burnout">Burnout</button><button type="button" class="tab-btn" data-tab="claims">Claims</button><button type="button" class="tab-btn" data-tab="underwriting">Underwriting</button></div></div>
+        <div class="tab-panel is-active" data-tab-panel="risk:burnout"><div class="grid-12"><article class="panel span-7"><div class="panel-head"><div><span class="panel-kicker">RISK COMPONENTS</span><h3>Burnout Pressure</h3></div><strong class="risk-number"><span data-bind="burnout">39</span>/100</strong></div><div class="bar-chart horizontal" id="burnoutComponents"></div></article><article class="panel span-5"><div class="panel-head"><div><span class="panel-kicker">AI NOTE</span><h3>Pattern Interpretation</h3></div><span class="ai-chip">AI</span></div><div class="ai-note" id="burnoutNote"></div></article></div></div>
+        <div class="tab-panel" data-tab-panel="risk:claims"><div class="grid-12"><article class="panel span-8"><div class="panel-head"><div><span class="panel-kicker">PROJECTED CATEGORIES</span><h3>Claims Pressure Mix</h3></div><strong class="metric-inline"><span data-bind="claims">34</span>/100</strong></div><div class="bar-chart" id="claimsCategories"></div></article><article class="panel span-4"><div class="panel-head"><div><span class="panel-kicker">PREVENTION</span><h3>Intervention Yield</h3></div></div><div class="donut large" id="preventionDonut"><div><strong data-bind="preventiveYield">72</strong><span>%</span></div></div><p class="panel-note">Share of modeled risk factors with an available preventive pathway in this prototype.</p></article></div></div>
+        <div class="tab-panel" data-tab-panel="risk:underwriting"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">SCENARIO LAB</span><h3>Projected Coverage Scenarios</h3></div><span class="warning-chip">SIMULATED PRICING</span></div><div class="scenario-grid" id="scenarioGrid"></div><p class="panel-note">This is a wellness-risk simulation layer, not licensed underwriting. Short-term stress spikes are smoothed before pricing impact.</p></article></div>
+      </section>
+
+      <section class="page" data-page="coverage">
+        <div class="section-head"><div><span class="section-kicker">05 / COVERAGE INTELLIGENCE</span><h2>Coverage</h2></div><div class="tabs" data-tabs="coverage"><button type="button" class="tab-btn is-active" data-tab="plans">Plans</button><button type="button" class="tab-btn" data-tab="benefits">Benefits</button><button type="button" class="tab-btn" data-tab="compare">Compare</button></div></div>
+        <div class="tab-panel is-active" data-tab-panel="coverage:plans"><div class="plan-grid" id="planGrid"></div><article class="panel plan-chart-panel"><div class="panel-head"><div><span class="panel-kicker">PRICE MODEL</span><h3>Projected Monthly Premium by Tier</h3></div><span class="warning-chip">DEMO ONLY</span></div><div class="bar-chart" id="planChart"></div></article></div>
+        <div class="tab-panel" data-tab-panel="coverage:benefits"><div class="benefit-grid" id="benefitGrid"></div><article class="panel"><div class="panel-head"><div><span class="panel-kicker">FUTURE INTEGRATIONS</span><h3>Partner Infrastructure</h3></div></div><div class="integration-grid"><div><strong>Apple Health</strong><span>CONNECT • FUTURE</span></div><div><strong>Garmin</strong><span>CONNECT • FUTURE</span></div><div><strong>Fitbit</strong><span>CONNECT • FUTURE</span></div><div><strong>Oura</strong><span>CONNECT • FUTURE</span></div><div><strong>Calendar</strong><span>CONNECT • FUTURE</span></div><div><strong>Insurance APIs</strong><span>PARTNER • FUTURE</span></div></div></article></div>
+        <div class="tab-panel" data-tab-panel="coverage:compare"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">BENEFIT MATRIX</span><h3>Standard vs Silver vs Gold</h3></div></div><div class="compare-table" id="compareTable"></div></article></div>
+      </section>
+
+      <section class="page" data-page="rewards">
+        <div class="section-head"><div><span class="section-kicker">06 / BEHAVIOR REWARDS</span><h2>Rewards</h2></div><div class="tabs" data-tabs="rewards"><button type="button" class="tab-btn is-active" data-tab="premium">Premium Simulator</button><button type="button" class="tab-btn" data-tab="points">Points</button><button type="button" class="tab-btn" data-tab="challenges">Challenges</button></div></div>
+        <div class="tab-panel is-active" data-tab-panel="rewards:premium"><div class="premium-hero"><div><span class="panel-kicker">30-DAY WEIGHTED PRICING SCORE</span><h3>Projected Premium</h3><div class="premium-big">$<span data-bind="premium">299</span><small>/ month</small></div><span class="warning-chip">SIMULATED PREMIUM</span></div><div class="premium-flow"><div><span>Base</span><strong>$340</strong></div><b>→</b><div><span>Behavior Discount</span><strong data-bind="discountPct">12%</strong></div><b>→</b><div><span>Monthly Savings</span><strong>$<span data-bind="monthlySavings">41</span></strong></div><b>→</b><div><span>Annual Savings</span><strong>$<span data-bind="annualSavings">492</span></strong></div></div></div><article class="panel"><div class="panel-head"><div><span class="panel-kicker">DISCOUNT PATH</span><h3>Vitality Score → Potential Savings</h3></div></div><div class="discount-scale" id="discountScale"></div></article></div>
+        <div class="tab-panel" data-tab-panel="rewards:points"><div class="grid-12"><article class="panel span-4"><div class="wallet"><span class="wallet-icon">✦</span><span>VITALITY POINTS</span><strong data-bind="points">1,540</strong><small data-bind="pointsWeek">+640 this week</small></div></article><article class="panel span-8"><div class="panel-head"><div><span class="panel-kicker">POINTS HISTORY</span><h3>Rewards by Category</h3></div></div><div class="bar-chart" id="pointsChart"></div></article></div></div>
+        <div class="tab-panel" data-tab-panel="rewards:challenges"><div class="challenge-grid" id="challengeGrid"></div></div>
+      </section>
+
+      <section class="page" data-page="care">
+        <div class="section-head"><div><span class="section-kicker">07 / CARE ORCHESTRATION</span><h2>Care</h2></div><div class="tabs" data-tabs="care"><button type="button" class="tab-btn is-active" data-tab="providers">Providers</button><button type="button" class="tab-btn" data-tab="pathways">Pathways</button><button type="button" class="tab-btn" data-tab="telehealth">Telehealth</button></div></div>
+        <div class="tab-panel is-active" data-tab-panel="care:providers"><div class="provider-grid" id="providerGrid"></div><article class="panel"><div class="panel-head"><div><span class="panel-kicker">CARE ACCESS</span><h3>Recommended Mix</h3></div></div><div class="bar-chart" id="providerChart"></div></article></div>
+        <div class="tab-panel" data-tab-panel="care:pathways"><div class="pathway-grid" id="pathwayGrid"></div></div>
+        <div class="tab-panel" data-tab-panel="care:telehealth"><div class="grid-12"><article class="panel span-6"><div class="panel-head"><div><span class="panel-kicker">UPCOMING</span><h3>Appointments</h3></div></div><div class="appointment-grid" id="appointmentGrid"></div></article><article class="panel span-6"><div class="panel-head"><div><span class="panel-kicker">UTILIZATION</span><h3>Telehealth Utilization</h3></div></div><div class="bar-chart" id="telehealthChart"></div></article></div></div>
+      </section>
+
+      <section class="page" data-page="coach">
+        <div class="section-head"><div><span class="section-kicker">08 / PREVENTIVE AI</span><h2>AI Coach</h2></div><div class="tabs" data-tabs="coach"><button type="button" class="tab-btn is-active" data-tab="daily">Daily Coach</button><button type="button" class="tab-btn" data-tab="meal">Meal Planner</button><button type="button" class="tab-btn" data-tab="recovery">Recovery</button><button type="button" class="tab-btn" data-tab="notes">AI Notes</button></div></div>
+        <div class="tab-panel is-active" data-tab-panel="coach:daily"><div class="grid-12"><article class="panel span-7"><div class="panel-head"><div><span class="panel-kicker">TODAY'S PLAN</span><h3>Executive Performance Coach</h3></div><span class="ai-chip">AI</span></div><div class="coach-actions" id="coachActions"></div></article><article class="panel span-5"><div class="panel-head"><div><span class="panel-kicker">EXPECTED EFFECT</span><h3>Tomorrow's Signal</h3></div></div><div class="coach-score"><div class="score-orb"><strong data-bind="vitalityTomorrow">81</strong><span>PROJECTED</span></div><div class="mini-grid"><div><span>Stress</span><strong data-bind="stressTomorrow">-6</strong></div><div><span>Recovery</span><strong data-bind="recoveryTomorrow">+5</strong></div><div><span>Sleep</span><strong data-bind="sleepTomorrow">+0.4h</strong></div><div><span>Risk</span><strong data-bind="riskTomorrow">-5</strong></div></div></div></article></div></div>
+        <div class="tab-panel" data-tab-panel="coach:meal"><article class="panel"><div class="panel-head"><div><span class="panel-kicker">CALENDAR-AWARE</span><h3>Meal Planner</h3></div><span class="ai-chip">DEMO SCHEDULE</span></div><div class="calendar-meal-grid" id="calendarMealGrid"></div></article></div>
+        <div class="tab-panel" data-tab-panel="coach:recovery"><div class="grid-12"><article class="panel span-7"><div class="panel-head"><div><span class="panel-kicker">72-HOUR PLAN</span><h3>Recovery Trajectory</h3></div></div><div class="chart-shell"><svg class="line-chart" id="recoveryChart" viewBox="0 0 760 250" preserveAspectRatio="none"></svg></div></article><article class="panel span-5"><div class="panel-head"><div><span class="panel-kicker">RECOVERY BLOCKS</span><h3>Next 72 Hours</h3></div></div><div class="recovery-blocks" id="recoveryBlocks"></div></article></div></div>
+        <div class="tab-panel" data-tab-panel="coach:notes"><article class="panel ai-summary-panel"><div class="panel-head"><div><span class="panel-kicker">EXECUTIVE SUMMARY</span><h3>AI Health Note</h3></div><button type="button" class="ghost-btn" id="regenerateNote">Regenerate</button></div><div class="ai-summary" id="aiSummary"></div><div class="ethics-strip"><span>◈</span><p>Wellness intelligence only. No medical diagnosis. No psychiatric inference. Future regulated use requires consent, governance, auditability and licensed partners.</p></div></article></div>
+      </section>
+
+      <footer class="app-footer">
+        <span>VITALITY COVER AI MVP v1.0</span>
+        <span>Better behavior. Lower risk. Smarter coverage.</span>
+        <span>Simulated Data • Projected Premium • Wellness Risk Indicator</span>
+      </footer>
+    </main>
+
+    <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation"></nav>
+
+    <div class="simulator-backdrop" id="simBackdrop"></div>
+    <aside class="simulator" id="simulator" aria-label="Simulation inputs">
+      <div class="sim-head"><div><span class="panel-kicker">LIVE DEMO INPUTS</span><h3>Simulation Lab</h3></div><button type="button" class="icon-btn" id="closeSimulator" aria-label="Close">×</button></div>
+      <p class="sim-copy">Change the member's wellness inputs. The entire application recalculates in real time. Humans do enjoy moving sliders until reality becomes negotiable.</p>
+      <div class="input-group"><label>Average Sleep <strong><span id="sleepValue">7.2</span>h</strong></label><input id="sleepInput" type="range" min="4" max="9" step="0.1" value="7.2" /></div>
+      <div class="input-group"><label>Daily Steps <strong><span id="stepsValue">6800</span></strong></label><input id="stepsInput" type="range" min="1000" max="16000" step="100" value="6800" /></div>
+      <div class="input-group"><label>Recovery Score <strong><span id="recoveryValue">72</span></strong></label><input id="recoveryInput" type="range" min="0" max="100" step="1" value="72" /></div>
+      <div class="input-group"><label>Nutrition Score <strong><span id="nutritionValue">74</span></strong></label><input id="nutritionInput" type="range" min="0" max="100" step="1" value="74" /></div>
+      <div class="input-group"><label>Stress Load <strong><span id="stressValue">42</span></strong></label><input id="stressInput" type="range" min="0" max="100" step="1" value="42" /></div>
+      <div class="input-group"><label>Member Type</label><select id="memberTypeInput"><option>Founder</option><option>Executive</option><option>Freelancer</option><option>Remote Team Lead</option></select></div>
+      <div class="sim-result"><span>Vitality Score</span><strong data-bind="vitality">78</strong><small>Long-term behavior weighted</small></div>
+      <button type="button" class="primary-btn full" id="resetInputs">Reset demo profile</button>
+    </aside>
+  </div>
+
+  <script>
+(() => {
+  'use strict';
+
+  const NAV_ITEMS = [
+    ['dashboard','Dashboard','⌂'],['member','Member 360','◎'],['health','Health','♥'],['risk','Risk','△'],
+    ['coverage','Coverage','◈'],['rewards','Rewards','✦'],['care','Care','＋'],['coach','AI Coach','AI']
+  ];
+
+  const state = {
+    sleep: 7.2,
+    steps: 6800,
+    recovery: 72,
+    nutrition: 74,
+    stress: 42,
+    memberType: 'Founder',
+    baselineVitality: 78,
+    basePremium: 340
+  };
+
+  const clamp = (v, min=0, max=100) => Math.max(min, Math.min(max, v));
+  const round = (v) => Math.round(v);
+  const fmt = (v) => Number(v).toLocaleString('en-US');
+
+  function derive(s = state) {
+    const sleepScore = clamp(100 - Math.abs(8 - s.sleep) * 20);
+    const activityScore = clamp((s.steps / 10000) * 100);
+    const resilience = 100 - s.stress;
+    const vitality = clamp(
+      sleepScore * .24 + activityScore * .24 + s.recovery * .22 + s.nutrition * .18 + resilience * .12
+    );
+    const sleepDef = 100 - sleepScore;
+    const recoveryDef = 100 - s.recovery;
+    const burnout = clamp(s.stress * .45 + sleepDef * .25 + recoveryDef * .30);
+    const claims = clamp((100 - vitality) * .35 + s.stress * .25 + recoveryDef * .20 + (100 - s.nutrition) * .20);
+    const recoveryRisk = recoveryDef;
+    const stressRisk = s.stress;
+    const sleepDebt = sleepDef;
+    const lifestyle = clamp((100 - activityScore) * .55 + (100 - s.nutrition) * .45);
+
+    // Stabilized pricing score: current pattern is blended with 30-day baseline so one bad week does not punish pricing.
+    const pricingScore = vitality * .72 + s.baselineVitality * .28;
+    let discount = 0;
+    if (pricingScore < 60) discount = clamp((pricingScore / 60) * 5, 0, 5);
+    else if (pricingScore < 70) discount = 5 + ((pricingScore - 60) / 10) * 4;
+    else if (pricingScore < 85) discount = 9 + ((pricingScore - 70) / 15) * 5;
+    else discount = 14 + ((pricingScore - 85) / 15) * 6;
+    discount = clamp(discount, 0, 20);
+
+    const premium = s.basePremium * (1 - discount / 100);
+    const savings = s.basePremium - premium;
+    const tier = vitality >= 85 ? 'Gold' : vitality >= 70 ? 'Silver' : 'Standard';
+    const points = round(820 + sleepScore * 2.1 + activityScore * 2.5 + s.recovery * 1.8 + s.nutrition * 1.5 + resilience * 1.3);
+    const pointsWeek = round(150 + sleepScore * 1.8 + activityScore * 1.6 + s.recovery * 1.2 + s.nutrition * .8);
+    const preventiveRisk = clamp(claims * .54);
+    const preventiveYield = clamp(78 - claims * .18 + vitality * .08);
+
+    return { sleepScore, activityScore, resilience, vitality, burnout, claims, recoveryRisk, stressRisk, sleepDebt, lifestyle, pricingScore, discount, premium, savings, tier, points, pointsWeek, preventiveRisk, preventiveYield };
+  }
+
+  const riskLabel = (v) => v < 25 ? 'Low' : v < 50 ? 'Moderate' : v < 70 ? 'Elevated' : 'High';
+
+  function createNav() {
+    const side = document.getElementById('sideNav');
+    const bottom = document.getElementById('bottomNav');
+    NAV_ITEMS.forEach(([id,label,icon]) => {
+      const a = document.createElement('button');
+      a.type = 'button';
+      a.className = 'nav-btn' + (id==='dashboard'?' is-active':'');
+      a.dataset.pageTarget = id;
+      a.title = label;
+      a.innerHTML = `<span class="icon">${icon}</span><span class="nav-label">${label}</span>`;
+      side.appendChild(a);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'bottom-btn' + (id==='dashboard'?' is-active':'');
+      b.dataset.pageTarget = id;
+      b.innerHTML = `<span class="icon">${icon}</span><span>${label}</span>`;
+      bottom.appendChild(b);
+    });
+  }
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('is-active', p.dataset.page === id));
+    document.querySelectorAll('[data-page-target]').forEach(b => b.classList.toggle('is-active', b.dataset.pageTarget === id));
+    const item = NAV_ITEMS.find(n => n[0]===id);
+    document.getElementById('pageTitle').textContent = item ? item[1] : 'Vitality Cover AI';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function setupNavigation() {
+    document.addEventListener('click', e => {
+      const nav = e.target.closest('[data-page-target]');
+      if (nav) showPage(nav.dataset.pageTarget);
+      const tab = e.target.closest('.tab-btn');
+      if (tab) {
+        const tabs = tab.closest('[data-tabs]');
+        const group = tabs.dataset.tabs;
+        tabs.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('is-active', b===tab));
+        document.querySelectorAll(`[data-tab-panel^="${group}:"]`).forEach(p => p.classList.toggle('is-active', p.dataset.tabPanel === `${group}:${tab.dataset.tab}`));
+      }
+    });
+  }
+
+  function setBound(name, value) {
+    document.querySelectorAll(`[data-bind="${name}"]`).forEach(el => el.textContent = value);
+  }
+
+  function updateBindings(d) {
+    setBound('vitality', round(d.vitality));
+    setBound('tier', d.tier);
+    setBound('premium', round(d.premium));
+    setBound('burnout', round(d.burnout));
+    setBound('burnoutLabel', riskLabel(d.burnout));
+    setBound('points', fmt(d.points));
+    setBound('pointsWeek', `+${fmt(d.pointsWeek)} this week`);
+    setBound('discountText', `${round(d.discount)}% behavior discount`);
+    setBound('discountPct', `${round(d.discount)}%`);
+    setBound('monthlySavings', round(d.savings));
+    setBound('annualSavings', fmt(round(d.savings*12)));
+    setBound('claims', round(d.claims));
+    setBound('preventiveRisk', `${round(d.preventiveRisk)}%`);
+    setBound('lifestyle', `${round(d.lifestyle)}%`);
+    setBound('preventiveYield', round(d.preventiveYield));
+    setBound('sleep', state.sleep.toFixed(1));
+    setBound('stepsFormatted', fmt(state.steps));
+    setBound('recovery', round(state.recovery));
+    setBound('nutrition', round(state.nutrition));
+    setBound('stress', round(state.stress));
+    setBound('memberType', state.memberType);
+    setBound('activityScore', round(d.activityScore));
+    setBound('sleepDebt', round(d.sleepDebt));
+    setBound('stepsProgram', `${fmt(state.steps)} / 10,000`);
+    setBound('nutritionProgram', `${round(state.nutrition)}% adherence`);
+    setBound('vitalityDelta', `${d.vitality >= state.baselineVitality ? '+' : ''}${((d.vitality-state.baselineVitality)/state.baselineVitality*100).toFixed(1)}%`);
+    const forecast = clamp(d.vitality + (100-d.vitality)*.23);
+    setBound('forecastDelta', `+${round(forecast-d.vitality)} pts`);
+    setBound('vitalityTomorrow', round(clamp(d.vitality + 3)));
+    setBound('stressTomorrow', `-${Math.max(3,round(state.stress*.14))}`);
+    setBound('recoveryTomorrow', `+${Math.max(3,round((100-state.recovery)*.18))}`);
+    setBound('sleepTomorrow', `+${Math.max(.2,Math.min(.7,(8-state.sleep)*.35)).toFixed(1)}h`);
+    setBound('riskTomorrow', `-${Math.max(3,round(d.burnout*.12))}`);
+
+    const riskDot = document.querySelector('[data-risk-dot="burnout"]');
+    if (riskDot) riskDot.style.background = d.burnout < 25 ? 'var(--green)' : d.burnout < 50 ? 'var(--yellow)' : 'var(--red)';
+    document.getElementById('stepsProgress').style.width = `${clamp(state.steps/10000*100)}%`;
+    document.getElementById('nutritionProgress').style.width = `${state.nutrition}%`;
+    document.getElementById('sleepRiskGauge').style.width = `${d.sleepDebt}%`;
+  }
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  function lineChart(id, series, labels, max=100, min=0) {
+    const svg = document.getElementById(id); if (!svg) return;
+    const vb = svg.viewBox.baseVal; const W = vb.width || 760, H = vb.height || 250;
+    const pad = {l:36,r:15,t:16,b:28}; const cw=W-pad.l-pad.r, ch=H-pad.t-pad.b;
+    svg.innerHTML = '';
+    for(let i=0;i<5;i++){
+      const y=pad.t+(ch/4)*i;
+      const g=document.createElementNS(svgNS,'line');g.setAttribute('x1',pad.l);g.setAttribute('x2',W-pad.r);g.setAttribute('y1',y);g.setAttribute('y2',y);g.setAttribute('class','chart-grid');svg.appendChild(g);
+      const t=document.createElementNS(svgNS,'text');t.setAttribute('x',4);t.setAttribute('y',y+4);t.setAttribute('class','chart-label');t.textContent=Math.round(max-(max-min)*(i/4));svg.appendChild(t);
+    }
+    labels.forEach((lab,i)=>{const x=pad.l+(cw/(labels.length-1||1))*i;const t=document.createElementNS(svgNS,'text');t.setAttribute('x',x);t.setAttribute('y',H-6);t.setAttribute('text-anchor','middle');t.setAttribute('class','chart-label');t.textContent=lab;svg.appendChild(t)});
+    const colors=['var(--cyan)','var(--purple)','var(--pink)','var(--green)'];
+    series.forEach((vals,si)=>{
+      const pts=vals.map((v,i)=>{const x=pad.l+(cw/(vals.length-1||1))*i;const y=pad.t+ch-(clamp((v-min)/(max-min),0,1)*ch);return [x,y]});
+      const path=document.createElementNS(svgNS,'path');path.setAttribute('d',pts.map((p,i)=>`${i?'L':'M'} ${p[0]} ${p[1]}`).join(' '));path.setAttribute('class','chart-line');path.setAttribute('stroke',colors[si%colors.length]);svg.appendChild(path);
+      pts.forEach(p=>{const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r','3');c.setAttribute('fill',colors[si%colors.length]);svg.appendChild(c)});
+    });
+  }
+
+  function riskBars(id, rows) {
+    const el=document.getElementById(id); if(!el)return;
+    el.innerHTML=rows.map(([label,value])=>`<div class="risk-row"><span>${label}</span><div class="risk-track"><i style="width:${clamp(value)}%"></i></div><strong>${round(value)}</strong></div>`).join('');
+  }
+
+  function barChart(id, rows, max=100) {
+    const el=document.getElementById(id); if(!el)return;
+    el.classList.remove('horizontal');
+    el.innerHTML=rows.map(([label,value])=>`<div class="bar-group"><span class="bar-value">${round(value)}</span><div class="bar" style="height:${clamp(value/max*100)}%"></div><span class="bar-label">${label}</span></div>`).join('');
+  }
+
+  function hBarChart(id, rows) {
+    const el=document.getElementById(id); if(!el)return;
+    el.classList.add('horizontal');
+    el.innerHTML=rows.map(([label,value])=>`<div class="hbar-row"><span>${label}</span><div class="hbar-track"><i style="width:${clamp(value)}%"></i></div><strong>${round(value)}</strong></div>`).join('');
+  }
+
+  function renderDonuts(d){
+    const claims=document.getElementById('claimsDonut'); if(claims) claims.style.background=`conic-gradient(var(--cyan) 0deg,var(--purple) ${d.claims*3.6}deg,rgba(89,106,138,.12) ${d.claims*3.6}deg)`;
+    const prevention=document.getElementById('preventionDonut'); if(prevention) prevention.style.background=`conic-gradient(var(--green) 0deg,var(--cyan) ${d.preventiveYield*3.6}deg,rgba(89,106,138,.12) ${d.preventiveYield*3.6}deg)`;
+  }
+
+  function radar(d){
+    const svg=document.getElementById('signalRadar'); if(!svg)return; svg.innerHTML='';
+    const cx=230,cy=178,R=130,n=5; const axes=['Sleep','Activity','Recovery','Nutrition','Stress Res.']; const vals=[d.sleepScore,d.activityScore,state.recovery,state.nutrition,d.resilience];
+    for(let level=1;level<=4;level++){
+      const pts=axes.map((_,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;const r=R*(level/4);return `${cx+Math.cos(a)*r},${cy+Math.sin(a)*r}`}).join(' ');
+      const p=document.createElementNS(svgNS,'polygon');p.setAttribute('points',pts);p.setAttribute('class','radar-grid');svg.appendChild(p);
+    }
+    axes.forEach((label,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;const x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R;const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',cx);l.setAttribute('y1',cy);l.setAttribute('x2',x);l.setAttribute('y2',y);l.setAttribute('class','radar-axis');svg.appendChild(l);const t=document.createElementNS(svgNS,'text');t.setAttribute('x',cx+Math.cos(a)*(R+28));t.setAttribute('y',cy+Math.sin(a)*(R+24));t.setAttribute('text-anchor','middle');t.setAttribute('class','chart-label');t.textContent=label;svg.appendChild(t)});
+    const pts=vals.map((v,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;const r=R*(v/100);return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]});
+    const poly=document.createElementNS(svgNS,'polygon');poly.setAttribute('points',pts.map(p=>p.join(',')).join(' '));poly.setAttribute('class','radar-shape');svg.appendChild(poly);
+    pts.forEach(p=>{const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',4);c.setAttribute('class','radar-point');svg.appendChild(c)});
+    document.getElementById('radarLegend').innerHTML=axes.map((a,i)=>`<div><span>${a}</span><strong>${round(vals[i])}</strong></div>`).join('');
+  }
+
+  function forecast(d){
+    const el=document.getElementById('scoreForecast'); if(!el)return;
+    const vals=Array.from({length:8},(_,i)=>clamp(d.vitality+(100-d.vitality)*(.03*i)));
+    el.innerHTML=vals.map(v=>`<div class="forecast-bar" data-value="${round(v)}" style="height:${35+v*.7}%"></div>`).join('');
+  }
+
+  function renderStatic(d){
+    const actions = buildActions(d);
+    document.getElementById('nextBestActions').innerHTML = actions.slice(0,4).map((a,i)=>`<div class="action-item"><div class="action-icon">${['☾','↗','◌','✦'][i]}</div><div><strong>${a.title}</strong><small>${a.detail}</small></div><em>${a.impact}</em></div>`).join('');
+    document.getElementById('coachActions').innerHTML = actions.map((a,i)=>`<div class="coach-action"><div class="num">0${i+1}</div><div><strong>${a.title}</strong><small>${a.detail}</small></div><em>${a.impact}</em></div>`).join('');
+
+    const portfolio=[['Founders',round(d.vitality),'$'+round(d.premium),d.burnout<45?'↓ improving':'↑ watch',d.tier],['Executives',82,'$286','↓ improving','Silver'],['Freelancers',74,'$306','→ stable','Silver'],['Remote Team Leads',69,'$318','↑ watch','Standard']];
+    document.getElementById('portfolioTable').innerHTML=`<div class="data-row header"><div>Member segment</div><div>Avg vitality</div><div>Avg premium</div><div>Risk trend</div><div>Plan tier</div></div>`+portfolio.map(r=>`<div class="data-row"><div><strong>${r[0]}</strong></div><div>${r[1]}</div><div>${r[2]}</div><div class="${r[3].startsWith('↓')?'trend-up':r[3].startsWith('↑')?'trend-down':''}">${r[3]}</div><div>${r[4]}</div></div>`).join('');
+
+    const alertData=[['Sleep','Late sleep pattern detected','Two nights below target. Support recommended, no pricing penalty.','WATCH'],['Stress','Workload pressure rising',`${state.stress}/100 stress load is ${riskLabel(state.stress).toLowerCase()}.`,'LIVE'],['Recovery','Recovery opportunity','Protect one low-intensity block in the next 24 hours.','ACTION'],['Care','Preventive pathway available','A coaching pathway can reduce modeled risk before claims pressure increases.','READY'],['Underwriting','Stability buffer active','Pricing uses a 30-day weighted score to avoid short-term punishment.','SAFEGUARD'],['Nutrition','Meal rhythm drift','Calendar-aware timing can reduce late-day crash risk.','COACH']];
+    document.getElementById('alertsGrid').innerHTML=alertData.map(a=>`<div class="alert-card"><div class="alert-icon">!</div><div><strong>${a[0]} • ${a[1]}</strong><small>${a[2]}</small></div><span class="alert-level">${a[3]}</span></div>`).join('');
+
+    const routines=[['Sleep routine',d.sleepScore],['Movement routine',d.activityScore],['Recovery routine',state.recovery],['Nutrition routine',state.nutrition]];
+    document.getElementById('routineGrid').innerHTML=routines.map(([l,v])=>`<div class="routine-card"><div class="routine-top"><strong>${l}</strong><span>${round(v)}%</span></div><div class="progress"><i style="width:${v}%"></i></div></div>`).join('');
+
+    const commits=['7 hour sleep','8K steps','2 recovery sessions','Hydration target','Healthy meals','Therapy / coaching'];
+    document.getElementById('commitmentList').innerHTML=commits.map((c,i)=>`<label class="check-item"><input type="checkbox" ${i<4?'checked':''}/> ${c}</label>`).join('');
+    document.getElementById('engagementFunnel').innerHTML=[['Eligible',100],['Enrolled',82],['Activated',71],['Weekly engaged',64],['Challenge complete',48]].map(([l,v])=>`<div class="funnel-step" style="width:${50+v/2}%"><span>${l}</span><strong>${v}%</strong></div>`).join('');
+    document.getElementById('activityTimeline').innerHTML=[['Today • 14:20','Recovery score synced from demo input'],['Today • 12:40','Protein-focused meal plan opened'],['Yesterday • 22:58','Bedtime routine completed'],['Mon • 17:10','Walking break challenge +85 points'],['Mon • 09:05','Stress reset completed']].map(x=>`<div class="timeline-item"><strong>${x[0]}</strong><small>${x[1]}</small></div>`).join('');
+
+    const meals=[['08:30','Greek yogurt + oats + fruit','Before deep work','STEADY'],['12:40','Protein bowl + grains + greens','Between meetings','FOCUS'],['16:20','Nuts + fruit + water','Prevents late crash','RECOVERY'],['20:00','Light dinner + vegetables','Post-work window','SLEEP']];
+    document.getElementById('mealTimeline').innerHTML=meals.map(m=>`<div class="meal-row"><div class="meal-time">${m[0]}</div><div><strong>${m[1]}</strong><small>${m[2]}</small></div><span class="meal-tag">${m[3]}</span></div>`).join('');
+
+    const stressPressure=state.stress, sleepErosion=d.sleepDebt, recoveryDef=100-state.recovery, workload=clamp(state.stress*.8+(state.memberType==='Founder'?15:8));
+    hBarChart('burnoutComponents',[['Stress Pressure',stressPressure],['Sleep Erosion',sleepErosion],['Recovery Deficit',recoveryDef],['Workload Spillover',workload]]);
+    document.getElementById('burnoutNote').innerHTML=`<strong>${riskLabel(d.burnout)} burnout pressure.</strong><br><br>${state.stress > 55 ? 'Stress is the dominant signal.' : d.sleepDebt > 35 ? 'Sleep inconsistency is the primary pressure point.' : 'No single signal is currently dominant.'} The engine is designed to intervene before modeled risk becomes expensive. A short-term spike does <strong>not</strong> automatically reduce the pricing tier; persistent 30–60 day deterioration would trigger a structured review.`;
+
+    const scenarios = buildScenarios(d);
+    document.getElementById('scenarioGrid').innerHTML=scenarios.map((s,i)=>`<div class="scenario-card ${i===1?'featured':''}"><div class="scenario-title"><h4>${s.name}</h4><span class="${i===1?'pill healthy':'pill'}">${s.risk}</span></div><div class="scenario-metrics"><div><span>Vitality</span><strong>${round(s.vitality)}</strong></div><div><span>Projected premium</span><strong>$${round(s.premium)}</strong></div><div><span>Burnout risk</span><strong>${round(s.burnout)}</strong></div></div></div>`).join('');
+
+    const planOffsets={Standard:22,Silver:8,Gold:-8};
+    const plans=['Standard','Silver','Gold'];
+    document.getElementById('planGrid').innerHTML=plans.map(p=>{const price=round(clamp(d.premium+planOffsets[p],250,380));const feats=p==='Standard'?['Core wellness dashboard','Preventive checkups','Telehealth access','Basic rewards']:p==='Silver'?['Everything in Standard','Stress coaching','Wearable integration','Nutrition + sleep programs','Enhanced rewards']:['Everything in Silver','Priority care routing','Executive recovery programs','Advanced AI risk intelligence','Highest reward ceiling'];return `<div class="plan-card ${d.tier===p?'recommended':''}"><span class="panel-kicker">PROJECTED PLAN</span><h3>${p.toUpperCase()}</h3><div class="plan-price">$${price}<small>/ month</small></div><ul class="plan-features">${feats.map(f=>`<li>${f}</li>`).join('')}</ul></div>`}).join('');
+    barChart('planChart', plans.map(p=>[p,round(clamp(d.premium+planOffsets[p],250,380))]),400);
+
+    const benefits=[['✚','Telehealth','Remote clinician access and triage.'],['◌','Preventive Checkups','Scheduled preventive engagement.'],['△','Stress Coaching','Non-diagnostic stress and workload support.'],['⌁','Wearable Integration','Future consent-based device signals.'],['✦','Nutrition','Calendar-aware meal timing guidance.'],['☾','Sleep Program','Sleep consistency and debt recovery.'],['◎','Mental Health','Future routing to licensed support.'],['⇄','Claims Assistant','Future support layer with insurer APIs.']];
+    document.getElementById('benefitGrid').innerHTML=benefits.map(b=>`<div class="benefit-card"><div class="benefit-icon">${b[0]}</div><strong>${b[1]}</strong><small>${b[2]}</small></div>`).join('');
+    const compareRows=[['Projected price','$321','$307','$291'],['Telehealth','✓','✓','✓'],['Preventive checkups','✓','✓','✓'],['Stress coaching','—','✓','✓'],['Nutrition + sleep','Basic','Full','Full + Priority'],['AI risk intelligence','Core','Advanced','Executive'],['Rewards ceiling','5%','14%','20%']];
+    document.getElementById('compareTable').innerHTML=`<div class="compare-row header"><div>Benefit</div><div>Standard</div><div>Silver</div><div>Gold</div></div>`+compareRows.map(r=>`<div class="compare-row"><div><strong>${r[0]}</strong></div><div>${r[1]}</div><div>${r[2]}</div><div>${r[3]}</div></div>`).join('');
+
+    document.getElementById('discountScale').innerHTML=[['Below 60','0–5%','Support-first'],['60–69','up to 9%','Standard'],['70–84','up to 14%','Silver'],['85+','up to 20%','Gold']].map((b,i)=>{const current=(d.pricingScore<60&&i===0)||(d.pricingScore>=60&&d.pricingScore<70&&i===1)||(d.pricingScore>=70&&d.pricingScore<85&&i===2)||(d.pricingScore>=85&&i===3);return `<div class="discount-band ${current?'is-current':''}"><span>${b[0]}</span><strong>${b[1]}</strong><small>${b[2]} ${current?'• current':''}</small></div>`}).join('');
+
+    const challenges=[['7-Day Sleep Recovery',250,clamp(d.sleepScore*.82)],['10K Steps Sprint',320,clamp(state.steps/10000*100)],['Low Stress Week',180,clamp((100-state.stress)*1.05)],['Meal Rhythm Challenge',150,state.nutrition]];
+    document.getElementById('challengeGrid').innerHTML=challenges.map(c=>`<div class="challenge-card"><div class="challenge-head"><div><h3>${c[0]}</h3><small>Behavior reward challenge</small></div><span class="reward-badge">+${c[1]} pts</span></div><div class="progress"><i style="width:${c[2]}%"></i></div><div class="challenge-foot"><span>${round(c[2])}% complete</span><span>${round(c[1]*c[2]/100)} pts unlocked</span></div></div>`).join('');
+
+    const providers=[['☾','Sleep Specialist','Sleep consistency + recovery review'],['◌','Stress Coach','Workload decompression + resilience'],['✦','Nutritionist','Meal rhythm + performance nutrition'],['✚','Primary Care','Preventive health coordination']];
+    document.getElementById('providerGrid').innerHTML=providers.map(p=>`<div class="provider-card"><div class="provider-icon">${p[0]}</div><strong>${p[1]}</strong><small>${p[2]}</small><button type="button">View demo pathway</button></div>`).join('');
+    const pathways=[['Sleep Debt',['Bedtime Audit','AI Coaching','7-Day Recovery','Specialist Referral']],['Stress',['Stress Signal','90s Reset','Coach Session','Clinical Routing']],['Nutrition',['Meal Audit','Timing AI','Meal Rhythm','Nutritionist']],['Recovery',['Recovery Deficit','Low Load Day','Sleep Block','Care Escalation']]];
+    document.getElementById('pathwayGrid').innerHTML=pathways.map(p=>`<div class="pathway-card"><h3>${p[0]} Pathway</h3><div class="pathway-flow">${p[1].map((s,i)=>`${i?'<span class="pathway-arrow">→</span>':''}<div class="pathway-step">${s}</div>`).join('')}</div></div>`).join('');
+    document.getElementById('appointmentGrid').innerHTML=[['Tue 11:30','Stress Coach','20-min remote session'],['Thu 08:45','Nutritionist','Meal rhythm review'],['Fri 17:00','Primary Care','Preventive check-in']].map(a=>`<div class="appointment-card"><div class="appointment-time">${a[0]}</div><div><strong>${a[1]}</strong><small>${a[2]}</small></div><button type="button">Book demo</button></div>`).join('');
+
+    document.getElementById('calendarMealGrid').innerHTML=[['08:30','09:00 investor prep','Greek yogurt + oats + berries','Fast, stable energy before focus block.'],['12:40','13:15 product review','Protein bowl + grains','High-protein lunch before meeting block.'],['16:20','17:00 board call','Nuts + fruit + water','Small fuel block to reduce late-day crash.'],['20:00','No late meetings','Light dinner + vegetables','Protect sleep quality and recovery.']].map(c=>`<div class="calendar-card"><time>${c[0]}</time><div class="calendar-event">${c[1]}</div><strong>${c[2]}</strong><small>${c[3]}</small></div>`).join('');
+    document.getElementById('recoveryBlocks').innerHTML=[['Tonight','23:00–07:15 sleep window','No punitive impact from one imperfect night.'],['Tomorrow','40-minute recovery block','Low-intensity walk + screen break.'],['+48 hours','Two movement breaks','10–15 minutes between meeting clusters.'],['+72 hours','Reassess trend','Review pattern, not a single data point.']].map(r=>`<div class="recovery-block"><span>${r[0]}</span><strong>${r[1]}</strong><small>${r[2]}</small></div>`).join('');
+  }
+
+  function buildActions(d){
+    const actions=[];
+    if(state.sleep<7.5) actions.push({title:'Protect tonight’s sleep window',detail:`Target 7.8–8.2h. Current average is ${state.sleep.toFixed(1)}h.`,impact:'+3 vitality'});
+    if(state.steps<8000) actions.push({title:'Add two walking blocks',detail:`Close a ${fmt(Math.max(0,8000-state.steps))}-step movement gap without a hard workout.`,impact:'+2 vitality'});
+    if(state.recovery<78) actions.push({title:'Create a 40-minute recovery block',detail:'Schedule low-load time before the next high-pressure work cluster.',impact:'−5 risk'});
+    if(state.stress>35) actions.push({title:'Use a 90-second decompression',detail:'Trigger immediately after the next demanding meeting.',impact:'−4 stress'});
+    if(state.nutrition<80) actions.push({title:'Anchor one protein-focused meal',detail:'Place it before the afternoon work peak to reduce energy volatility.',impact:'+2 stability'});
+    while(actions.length<4) actions.push({title:'Maintain current routine',detail:'Consistency is currently more valuable than adding more interventions.',impact:'hold tier'});
+    return actions.slice(0,5);
+  }
+
+  function projectPremium(vitality, baseline=state.baselineVitality){
+    const pricing=vitality*.72+baseline*.28; let disc;
+    if(pricing<60)disc=(pricing/60)*5;else if(pricing<70)disc=5+((pricing-60)/10)*4;else if(pricing<85)disc=9+((pricing-70)/15)*5;else disc=14+((pricing-85)/15)*6;
+    return state.basePremium*(1-clamp(disc,0,20)/100);
+  }
+  function buildScenarios(d){
+    const improvedV=clamp(d.vitality+10); const stressV=clamp(d.vitality-state.stress*.08);
+    return [
+      {name:'CURRENT',vitality:d.vitality,premium:d.premium,burnout:d.burnout,risk:riskLabel(d.burnout)},
+      {name:'IMPROVED +10',vitality:improvedV,premium:projectPremium(improvedV),burnout:clamp(d.burnout-12),risk:riskLabel(clamp(d.burnout-12))},
+      {name:'STRESS SPIKE',vitality:stressV,premium:projectPremium(stressV),burnout:clamp(d.burnout+18),risk:riskLabel(clamp(d.burnout+18))}
+    ];
+  }
+
+  function renderCharts(d){
+    const labels=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const base=d.vitality;
+    lineChart('dashboardTrend',[
+      [base-5,base-2,base-4,base+1,base-1,base+2,base],
+      [state.recovery-8,state.recovery-4,state.recovery-6,state.recovery,state.recovery+3,state.recovery+1,state.recovery],
+      [d.resilience-3,d.resilience,d.resilience-6,d.resilience-2,d.resilience+4,d.resilience+1,d.resilience]
+    ],labels);
+    riskBars('dashboardRiskBars',[['Burnout',d.burnout],['Claims',d.claims],['Recovery',d.recoveryRisk],['Stress',d.stressRisk],['Sleep Debt',d.sleepDebt],['Lifestyle',d.lifestyle]]);
+    forecast(d);
+    radar(d);
+    lineChart('sleepChart',[[state.sleep-.6,state.sleep-.2,state.sleep-.4,state.sleep+.3,state.sleep-.1,state.sleep+.4,state.sleep]],labels,9,4);
+    barChart('activityChart',labels.map((l,i)=>[l,clamp(state.steps*(.72+[.05,.12,.18,.22,.09,.31,.28][i]))]),16000);
+    lineChart('nutritionChart',[[state.nutrition-10,state.nutrition-6,state.nutrition-2,state.nutrition+3,state.nutrition-1,state.nutrition+2,state.nutrition]],labels);
+    lineChart('stressChart',[[clamp(state.stress-8),clamp(state.stress-2),clamp(state.stress+12),clamp(state.stress+4),clamp(state.stress+18),clamp(state.stress+2),state.stress]],labels);
+    barChart('claimsCategories',[['Preventive',d.preventiveRisk],['Stress',state.stress*.62],['Sleep',d.sleepDebt*.72],['Lifestyle',d.lifestyle],['Recovery',d.recoveryRisk*.68]]);
+    barChart('pointsChart',[['Sleep',d.sleepScore*2.1],['Movement',d.activityScore*2.5],['Recovery',state.recovery*1.8],['Nutrition',state.nutrition*1.5],['Stress',d.resilience*1.3]],260);
+    barChart('providerChart',[['Sleep',clamp(d.sleepDebt+25)],['Stress',clamp(state.stress+20)],['Nutrition',clamp(100-state.nutrition+34)],['Primary',45]]);
+    barChart('telehealthChart',[['Jan',28],['Feb',34],['Mar',43],['Apr',51],['May',48],['Jun',64]],75);
+    lineChart('portfolioChart',[[74,76,78,79,81,82],[70,71,73,74,75,74],[64,66,67,70,69,69]],["Jan","Feb","Mar","Apr","May","Jun"]);
+    lineChart('recoveryChart',[[state.recovery,clamp(state.recovery+4),clamp(state.recovery+8),clamp(state.recovery+12)],[d.burnout,clamp(d.burnout-4),clamp(d.burnout-8),clamp(d.burnout-12)]],['Now','24h','48h','72h']);
+    renderDonuts(d);
+  }
+
+  function renderSummary(d){
+    const primary = state.sleep<7 ? 'inconsistent sleep' : state.stress>55 ? 'elevated stress pressure' : state.recovery<60 ? 'recovery deficit' : 'moderate workload and routine variability';
+    const note = `Vitality Cover AI identifies this demo member as a <strong>${state.memberType}</strong> with a <strong>${d.tier} wellness profile</strong>.<br><br>Current Vitality Score: <strong>${round(d.vitality)}/100</strong>. The primary modeled risk factor is ${primary}. Burnout Risk Indicator is <strong>${round(d.burnout)}/100</strong> and projected claims pressure is <strong>${round(d.claims)}/100</strong>.<br><br>The pricing simulator applies a 30-day stability buffer, producing a projected premium of <strong>$${round(d.premium)}/month</strong> from a $${state.basePremium} base premium. This is simulated pricing only, not an insurance quote.<br><br>Maintaining improved recovery, sleep consistency and movement for several weeks could strengthen reward eligibility while reducing long-term wellness risk. Short-term stress events should trigger support and care options rather than immediate penalties.`;
+    document.getElementById('aiSummary').innerHTML=note;
+  }
+
+  function updateAll(){
+    const d=derive();
+    updateBindings(d); renderStatic(d); renderCharts(d); renderSummary(d);
+  }
+
+  function setupSimulator(){
+    const sim=document.getElementById('simulator'), back=document.getElementById('simBackdrop');
+    const open=()=>{sim.classList.add('open');back.classList.add('open')}, close=()=>{sim.classList.remove('open');back.classList.remove('open')};
+    document.getElementById('openSimulator').addEventListener('click',open);document.getElementById('closeSimulator').addEventListener('click',close);back.addEventListener('click',close);
+    const pairs=[['sleepInput','sleep','sleepValue'],['stepsInput','steps','stepsValue'],['recoveryInput','recovery','recoveryValue'],['nutritionInput','nutrition','nutritionValue'],['stressInput','stress','stressValue']];
+    pairs.forEach(([id,key,out])=>document.getElementById(id).addEventListener('input',e=>{state[key]=Number(e.target.value);document.getElementById(out).textContent=key==='sleep'?state[key].toFixed(1):key==='steps'?fmt(state[key]):state[key];updateAll()}));
+    document.getElementById('memberTypeInput').addEventListener('change',e=>{state.memberType=e.target.value;updateAll()});
+    document.getElementById('resetInputs').addEventListener('click',()=>{Object.assign(state,{sleep:7.2,steps:6800,recovery:72,nutrition:74,stress:42,memberType:'Founder'});syncInputs();updateAll()});
+  }
+  function syncInputs(){
+    document.getElementById('sleepInput').value=state.sleep;document.getElementById('sleepValue').textContent=state.sleep.toFixed(1);
+    document.getElementById('stepsInput').value=state.steps;document.getElementById('stepsValue').textContent=fmt(state.steps);
+    document.getElementById('recoveryInput').value=state.recovery;document.getElementById('recoveryValue').textContent=state.recovery;
+    document.getElementById('nutritionInput').value=state.nutrition;document.getElementById('nutritionValue').textContent=state.nutrition;
+    document.getElementById('stressInput').value=state.stress;document.getElementById('stressValue').textContent=state.stress;
+    document.getElementById('memberTypeInput').value=state.memberType;
+  }
+
+  function setupMicroInteractions(){
+    document.getElementById('saveCommitments').addEventListener('click',()=>{const n=document.getElementById('commitmentSaved');n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1800)});
+    document.getElementById('regenerateNote').addEventListener('click',()=>{const d=derive();renderSummary(d);const btn=document.getElementById('regenerateNote');btn.textContent='Updated';setTimeout(()=>btn.textContent='Regenerate',1000)});
+  }
+
+  createNav(); setupNavigation(); setupSimulator(); setupMicroInteractions(); syncInputs(); updateAll();
+})();
+</script>
+</body>
+</html>
